@@ -1,0 +1,5 @@
+# Visual Studio Cache Files
+.vs/
+
+# Build outputs
+build/
