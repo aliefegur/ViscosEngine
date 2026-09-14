@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required(VERSION 3.20)
 
-option(VISCOS_BUILD_SHARED "Build ViscosEngine as a shared library (DLL/.so)" ON)
+option(VISCOS_BUILD_SHARED "Build ViscosEngine as a shared library (.dll/.so)" ON)
 
 # Shared / Static build
 if(VISCOS_BUILD_SHARED)
@@ -33,17 +33,19 @@ endif()
 # Source filles
 target_sources(ViscosEngine 
     PRIVATE 
-        "src/ViscosEngine.cpp"
+        "Viscos/Core/Log.cpp"
     PUBLIC FILE_SET HEADERS
-        BASE_DIRS "src"
         FILES 
-            "src/ViscosEngine.h"
-            "src/API.h"
+            "Viscos/Viscos.h"
+            "Viscos/API.h"
+            "Viscos/Core/Log.h"
 )
 
 # Incude directories
 target_include_directories(ViscosEngine 
     PUBLIC 
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:include>
 )
+
+target_link_libraries(ViscosEngine PUBLIC spdlog::spdlog)
