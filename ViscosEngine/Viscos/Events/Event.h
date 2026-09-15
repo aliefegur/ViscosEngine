@@ -86,17 +86,17 @@ namespace Viscos {
 
 #define EVENT_CLASS_TYPE(type)                                      \
     static EventType GetStaticType() { return EventType::type; }    \
-    virtual EventType GetEventType() const noexcept override                 \
+    virtual EventType GetEventType() const noexcept override        \
     {                                                               \
         return GetStaticType();                                     \
     }                                                               \
-    virtual const char* GetName() const noexcept override                    \
+    virtual const char* GetName() const noexcept override           \
     {                                                               \
         return #type;                                               \
     }
 
 #define EVENT_CLASS_CATEGORY(category)                              \
-    virtual int GetCategoryFlags() const noexcept override                   \
+    virtual int GetCategoryFlags() const noexcept override          \
     {                                                               \
         return category;                                            \
     }

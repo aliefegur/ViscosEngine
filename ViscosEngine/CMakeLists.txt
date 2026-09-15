@@ -41,7 +41,8 @@ target_sources(ViscosEngine
             Viscos/Core/API.h
             Viscos/Core/Log.h
             Viscos/Events/Event.h
-            Viscos/Events/ApplicationEvents.h
+            Viscos/Events/WindowEvents.h
+            Viscos/Events/KeyEvents.h
 )
 
 # Incude directories
