@@ -7,16 +7,6 @@
 
 namespace Viscos {
 
-	template <typename T, typename... Args>
-	void Win32Window::DispatchEvent(Args&&... args)
-	{
-		if (m_EventCallback)
-		{
-			T event(std::forward<Args>(args)...);
-			m_EventCallback(event);
-		}
-	}
-
 	class Win32WindowClass
 	{
 	public:
@@ -123,6 +113,26 @@ namespace Viscos {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
+	}
+
+	uint32_t Win32Window::GetWidth() const
+	{
+		return m_Data.Width;
+	}
+
+	uint32_t Win32Window::GetHeight() const
+	{
+		return m_Data.Height;
+	}
+
+	void Win32Window::SetVSync(bool enabled)
+	{
+		// TODO: Implement VSync
+	}
+
+	bool Win32Window::IsVSync() const
+	{
+		return m_Data.VSync;
 	}
 
 	void* Win32Window::GetNativeWindow() const
