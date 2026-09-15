@@ -34,12 +34,16 @@ endif()
 target_sources(ViscosEngine 
     PRIVATE 
         Viscos/Core/Log.cpp
+        Viscos/Core/Window.cpp
         Viscos/Events/Event.cpp
+        Viscos/Platform/Windows/Win32Window.h
+        Viscos/Platform/Windows/Win32Window.cpp
     PUBLIC FILE_SET HEADERS
         FILES 
             Viscos/Viscos.h
             Viscos/Core/API.h
             Viscos/Core/Log.h
+            Viscos/Core/Window.h
             Viscos/Events/Event.h
             Viscos/Events/WindowEvents.h
             Viscos/Events/KeyEvents.h
