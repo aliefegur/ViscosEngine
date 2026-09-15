@@ -33,6 +33,7 @@ endif()
 # Source filles
 target_sources(ViscosEngine 
     PRIVATE 
+        viscos_pch.h
         Viscos/Core/Log.cpp
         Viscos/Core/Window.cpp
         Viscos/Events/Event.cpp
@@ -56,5 +57,7 @@ target_include_directories(ViscosEngine
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:include>
 )
+
+target_precompile_headers(ViscosEngine PRIVATE viscos_pch.h)
 
 target_link_libraries(ViscosEngine PUBLIC spdlog::spdlog)
