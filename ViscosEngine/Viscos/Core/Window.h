@@ -1,9 +1,11 @@
 #pragma once
 
 #include "API.h"
+#include "Viscos/Events/Event.h"
 
 #include <string>
 #include <cstdint>
+#include <functional>
 
 namespace Viscos {
 
@@ -17,6 +19,9 @@ namespace Viscos {
 	class VISCOS_API Window
 	{
 	public:
+		using EventCallbackFn = std::function<void(Event&)>;
+	
+	public:
 		virtual ~Window() = default;
 
 		virtual void OnUpdate() = 0;
@@ -29,7 +34,12 @@ namespace Viscos {
 
 		virtual void* GetNativeWindow() const = 0;
 
-		static Window* Create(const WindowProperties& props = WindowProperties{});
+		void SetEventCallback(const EventCallbackFn& callback);
+
+		static std::unique_ptr<Window> Create(const WindowProperties& props = WindowProperties{});
+
+	protected:
+		EventCallbackFn m_EventCallback;
 	};
 
 }

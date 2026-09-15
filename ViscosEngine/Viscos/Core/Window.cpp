@@ -8,10 +8,15 @@
 
 namespace Viscos {
 
-	Window* Window::Create(const WindowProperties& p)
+	void Window::SetEventCallback(const EventCallbackFn& callback)
+	{
+		m_EventCallback = std::move(callback);
+	}
+
+	std::unique_ptr<Window> Window::Create(const WindowProperties& p)
 	{
 #ifdef VISCOS_PLATFORM_WINDOWS
-		return new Win32Window(p);
+		return std::make_unique<Win32Window>(p);
 #else
 		VSCS_CORE_ERROR("ViscosEngine cannot create window for this platform!");
 		return nullptr;
