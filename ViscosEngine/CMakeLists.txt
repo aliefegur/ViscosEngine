@@ -43,6 +43,7 @@ target_sources(ViscosEngine
             Viscos/Events/Event.h
             Viscos/Events/WindowEvents.h
             Viscos/Events/KeyEvents.h
+            Viscos/Events/MouseEvents.h
 )
 
 # Incude directories
