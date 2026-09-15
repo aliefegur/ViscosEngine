@@ -45,6 +45,7 @@ target_sources(ViscosEngine
             Viscos/Core/API.h
             Viscos/Core/Log.h
             Viscos/Core/Window.h
+            Viscos/Core/Input/KeyCode.h
             Viscos/Events/Event.h
             Viscos/Events/WindowEvents.h
             Viscos/Events/KeyEvents.h
