@@ -3,6 +3,7 @@
 #include "Viscos/Core/API.h"
 
 #include <string>
+#include <ostream>
 
 namespace Viscos {
 
