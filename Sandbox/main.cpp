@@ -73,54 +73,15 @@ public:
 
 int main(int argc, char** argv)
 {
-	Log::Initialize();
+	Application app;
 
-	LayerStack stack;
-	
-	auto gameplay = std::make_unique<TestLayer>("Gameplay");
-	auto debug = std::make_unique<TestLayer>("Debug");
+	auto testLayer = std::make_unique<TestLayer>("Gameplay");
+	auto testOverlay = std::make_unique<TestOverlay>("Debug");
 
-	auto console = std::make_unique<TestOverlay>("Console");
-	auto profiler = std::make_unique<TestOverlay>("Profiler");
+	app.PushLayer(std::move(testLayer));
+	app.PushOverlay(std::move(testOverlay));
 
-	auto lateGameplay = std::make_unique<TestLayer>("LateGameplay");
-
-	stack.PushLayer(std::move(gameplay));
-	stack.PushLayer(std::move(debug));
-
-	stack.PushOverlay(std::move(console));
-	stack.PushOverlay(std::move(profiler));
-
-	stack.PushLayer(std::move(lateGameplay));
-
-	stack.OnUpdate();
-
-	KeyPressedEvent e(45, false);
-	stack.OnEvent(e);
-
-	stack.OnRender();
-
-	auto window = Window::Create({
-		"Viscos Engine Sandbox Test Application",
-		1280,
-		720
-	});
-
-	window->SetEventCallback(
-		[](Event& e) {
-			VSCS_INFO("Event Recieved: {}", e.ToString());
-		}
-	);
-
-	while (true)
-	{		
-		window->OnUpdate();
-
-		if (Input::IsKeyPressed(KeyCode::W)) VSCS_TRACE("W Pressed!");
-		if (Input::IsKeyPressed(KeyCode::A)) VSCS_TRACE("A Pressed!");
-		if (Input::IsKeyPressed(KeyCode::S)) VSCS_TRACE("S Pressed!");
-		if (Input::IsKeyPressed(KeyCode::D)) VSCS_TRACE("D Pressed!");
-	}
+	app.Run();
 
 	return 0;
 }
