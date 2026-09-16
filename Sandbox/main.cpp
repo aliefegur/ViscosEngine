@@ -23,11 +23,18 @@ public:
 	void OnEvent(Event& e) override
 	{
 		VSCS_INFO("{} received event: {}", GetName(), e.ToString());
+		e.Handled = true;
+		VSCS_INFO("{} handled event: {}", GetName(), e.ToString());
 	}
 
 	void OnUpdate() override
 	{
 		VSCS_INFO("{} updated", GetName());
+	}
+
+	void OnRender() override
+	{
+		VSCS_INFO("{} rendered", GetName());
 	}
 };
 
@@ -57,6 +64,11 @@ public:
 	{
 		VSCS_INFO("{} update", GetName());
 	}
+
+	void OnRender() override
+	{
+		VSCS_INFO("{} rendered", GetName());
+	}
 };
 
 int main(int argc, char** argv)
@@ -85,6 +97,8 @@ int main(int argc, char** argv)
 
 	KeyPressedEvent e(45, false);
 	stack.OnEvent(e);
+
+	stack.OnRender();
 
 	auto window = Window::Create({
 		"Viscos Engine Sandbox Test Application",
