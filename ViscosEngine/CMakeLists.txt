@@ -34,6 +34,8 @@ endif()
 target_sources(ViscosEngine 
     PRIVATE 
         viscos_pch.h
+        Viscos/Core/Layer.cpp
+        Viscos/Core/LayerStack.cpp
         Viscos/Core/Log.cpp
         Viscos/Core/Window.cpp
         Viscos/Core/Input/Input.cpp
@@ -46,6 +48,8 @@ target_sources(ViscosEngine
         FILES 
             Viscos/Viscos.h
             Viscos/Core/API.h
+            Viscos/Core/Layer.h
+            Viscos/Core/LayerStack.h
             Viscos/Core/Log.h
             Viscos/Core/Window.h
             Viscos/Core/Input/Input.h
