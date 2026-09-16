@@ -1,28 +1,61 @@
 #include <Viscos/Viscos.h>
+#include <Viscos/Events/KeyEvents.h>
 
 using namespace Viscos;
 
 class TestLayer : public Viscos::Layer
 {
 public:
-	TestLayer()
-		: Layer("TestLayer")
+	TestLayer(const std::string& name) : Layer(name)
 	{
 	}
 
 	void OnAttach() override
 	{
-		VSCS_INFO("TestLayer attached");
+		VSCS_INFO("{} attached", GetName());
 	}
 
 	void OnDetach() override
 	{
-		VSCS_INFO("TestLayer detached");
+		VSCS_INFO("{} detached", GetName());
+	}
+
+	void OnEvent(Event& e) override
+	{
+		VSCS_INFO("{} received event: {}", GetName(), e.ToString());
 	}
 
 	void OnUpdate() override
 	{
-		VSCS_INFO("TestLayer updated");
+		VSCS_INFO("{} updated", GetName());
+	}
+};
+
+class TestOverlay : public Overlay
+{
+public:
+	TestOverlay(const std::string& name) : Overlay(name)
+	{
+	}
+
+	void OnAttach() override
+	{
+		VSCS_INFO("{} attached", GetName());
+	}
+
+	void OnDetach() override
+	{
+		VSCS_INFO("{} detached", GetName());
+	}
+
+	void OnEvent(Event& e) override
+	{
+		VSCS_INFO("{} received event: {}", GetName(), e.ToString());
+	}
+
+	void OnUpdate() override
+	{
+		VSCS_INFO("{} update", GetName());
 	}
 };
 
@@ -31,8 +64,27 @@ int main(int argc, char** argv)
 	Log::Initialize();
 
 	LayerStack stack;
-	std::unique_ptr testLayer = std::make_unique<TestLayer>();
-	stack.PushLayer(std::move(testLayer));
+	
+	auto gameplay = std::make_unique<TestLayer>("Gameplay");
+	auto debug = std::make_unique<TestLayer>("Debug");
+
+	auto console = std::make_unique<TestOverlay>("Console");
+	auto profiler = std::make_unique<TestOverlay>("Profiler");
+
+	auto lateGameplay = std::make_unique<TestLayer>("LateGameplay");
+
+	stack.PushLayer(std::move(gameplay));
+	stack.PushLayer(std::move(debug));
+
+	stack.PushOverlay(std::move(console));
+	stack.PushOverlay(std::move(profiler));
+
+	stack.PushLayer(std::move(lateGameplay));
+
+	stack.OnUpdate();
+
+	KeyPressedEvent e(45, false);
+	stack.OnEvent(e);
 
 	auto window = Window::Create({
 		"Viscos Engine Sandbox Test Application",
@@ -47,9 +99,7 @@ int main(int argc, char** argv)
 	);
 
 	while (true)
-	{
-		stack.OnUpdate();
-		
+	{		
 		window->OnUpdate();
 
 		if (Input::IsKeyPressed(KeyCode::W)) VSCS_TRACE("W Pressed!");
