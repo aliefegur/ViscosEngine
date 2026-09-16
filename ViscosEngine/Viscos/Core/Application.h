@@ -1,6 +1,7 @@
 #pragma once
 
 #include "API.h"
+#include "ApplicationSpecification.h"
 #include "Layer.h"
 #include "LayerStack.h"
 #include "Window.h"
@@ -10,8 +11,8 @@ namespace Viscos {
 	class VISCOS_API Application 
 	{
 	public:
-		Application();
-		virtual ~Application();
+		Application(const ApplicationSpecification& appSpec = {});
+		virtual ~Application() = default;
 
 		void Run();
 

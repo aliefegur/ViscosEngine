@@ -13,7 +13,7 @@ namespace Viscos {
 	{
 		std::string Title = "Viscos Engine";
 		uint32_t Width = 1280;
-		uint16_t Height = 720;
+		uint32_t Height = 720;
 	};
 
 	class VISCOS_API Window

@@ -73,7 +73,10 @@ public:
 
 int main(int argc, char** argv)
 {
-	Application app;
+	ApplicationSpecification as{};
+	as.Name = "Viscos Engine Sandbox";
+
+	Application app(as);
 
 	auto testLayer = std::make_unique<TestLayer>("Gameplay");
 	auto testOverlay = std::make_unique<TestOverlay>("Debug");

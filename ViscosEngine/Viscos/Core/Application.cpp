@@ -4,22 +4,21 @@
 
 namespace Viscos {
 
-	Application::Application()
+	Application::Application(const ApplicationSpecification& appSpec)
 	{
 		Log::Initialize();
 
-		// TODO: Implement Application Specification system!
-		m_Window = Window::Create({ "Viscos Engine", 1280, 720 });
+		m_Window = Window::Create({ 
+			appSpec.Name, 
+			appSpec.Width, 
+			appSpec.Height 
+		});
+		
 		m_Window->SetEventCallback(
 			[this](Event& e) 
 			{
 				OnEvent(e);
 			});
-	}
-
-	Application::~Application()
-	{
-
 	}
 
 	void Application::Run()

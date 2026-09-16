@@ -49,6 +49,7 @@ target_sources(ViscosEngine
             Viscos/Viscos.h
             Viscos/Core/API.h
             Viscos/Core/Application.h
+            Viscos/Core/ApplicationSpecification.h
             Viscos/Core/Layer.h
             Viscos/Core/LayerStack.h
             Viscos/Core/Log.h
