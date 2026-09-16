@@ -21,6 +21,11 @@ int main(int argc, char** argv)
 	while (true)
 	{
 		window->OnUpdate();
+
+		if (Input::IsKeyPressed(KeyCode::W)) VSCS_TRACE("W Pressed!");
+		if (Input::IsKeyPressed(KeyCode::A)) VSCS_TRACE("A Pressed!");
+		if (Input::IsKeyPressed(KeyCode::S)) VSCS_TRACE("S Pressed!");
+		if (Input::IsKeyPressed(KeyCode::D)) VSCS_TRACE("D Pressed!");
 	}
 
 	return 0;

@@ -2,8 +2,8 @@
 
 #include <cstdint>
 
-namespace Viscos
-{
+namespace Viscos {
+
 	enum class KeyCode : uint16_t
 	{
 		Unknown = 0,
@@ -24,5 +24,6 @@ namespace Viscos
 		Count
 	};
 
-	constexpr uint16_t KeyCodeCount = static_cast<uint16_t>(KeyCode::Count);
+	constexpr size_t KeyCodeCount = static_cast<size_t>(KeyCode::Count);
+
 }

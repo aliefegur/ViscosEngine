@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Viscos/Core/Window.h"
+#include "Win32Input.h"
 
 #include <Windows.h>
 
@@ -38,6 +39,8 @@ namespace Viscos {
 		};
 
 		WindowData m_Data;
+
+		std::unique_ptr<Win32Input> m_Input;
 
 		HWND m_Hwnd;
 

@@ -1,6 +1,8 @@
 #include "Win32Window.h"
+#include "Win32Input.h"
 
 #include "Viscos/Core/Log.h"
+#include "Viscos/Core/Input/Input.h"
 #include "Viscos/Events/KeyEvents.h"
 #include "Viscos/Events/MouseEvents.h"
 #include "Viscos/Events/WindowEvents.h"
@@ -94,6 +96,10 @@ namespace Viscos {
 			VSCS_CORE_ERROR("Failed to create Win32Window!");
 			// TODO: Handla HRESULT exceptions
 		}
+
+		// Setup Input system
+		m_Input = std::make_unique<Win32Input>();
+		Input::SetProvider(m_Input.get());
 
 		ShowWindow(m_Hwnd, SW_SHOW);
 		UpdateWindow(m_Hwnd);
@@ -202,10 +208,31 @@ namespace Viscos {
 			return 0;
 		}
 
-		default:
+		case WM_KEYDOWN:
+		case WM_SYSKEYDOWN:
 		{
-			return DefWindowProc(hWnd, msg, wParam, lParam);
+			const KeyCode key = Win32Input::TranslateKeyCode(static_cast<uint32_t>(wParam));
+			if (key != KeyCode::Unknown)
+			{
+				m_Input->SetKeyState(key, true);
+			}
+
+			return 0;
 		}
+
+		case WM_KEYUP:
+		case WM_SYSKEYUP:
+		{
+			const KeyCode key = Win32Input::TranslateKeyCode(static_cast<uint32_t>(wParam));
+			if (key != KeyCode::Unknown)
+			{
+				m_Input->SetKeyState(key, false);
+			}
+
+			return 0;
+		}
+
+		default: return DefWindowProc(hWnd, msg, wParam, lParam);
 
 		}
 	}

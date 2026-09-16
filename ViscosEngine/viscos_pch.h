@@ -11,5 +11,7 @@
 #include <algorithm>
 #include <memory>
 #include <cstdlib>
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
+#include <cassert>
