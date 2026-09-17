@@ -217,6 +217,8 @@ namespace Viscos {
 				m_Input->SetKeyState(key, true);
 			}
 
+			DispatchEvent<KeyPressedEvent>(key, lParam & 0x40000000);
+
 			return 0;
 		}
 
@@ -228,6 +230,8 @@ namespace Viscos {
 			{
 				m_Input->SetKeyState(key, false);
 			}
+
+			DispatchEvent<KeyReleasedEvent>(key);
 
 			return 0;
 		}

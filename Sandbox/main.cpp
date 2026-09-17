@@ -29,12 +29,12 @@ public:
 
 	void OnUpdate() override
 	{
-		VSCS_INFO("{} updated", GetName());
+		//VSCS_INFO("{} updated", GetName());
 	}
 
 	void OnRender() override
 	{
-		VSCS_INFO("{} rendered", GetName());
+		//VSCS_INFO("{} rendered", GetName());
 	}
 };
 
@@ -62,12 +62,12 @@ public:
 
 	void OnUpdate() override
 	{
-		VSCS_INFO("{} update", GetName());
+		//VSCS_INFO("{} update", GetName());
 	}
 
 	void OnRender() override
 	{
-		VSCS_INFO("{} rendered", GetName());
+		//VSCS_INFO("{} rendered", GetName());
 	}
 };
 
