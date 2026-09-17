@@ -7,26 +7,26 @@ namespace Viscos {
 	class KeyEvent : public Event
 	{
 	public:
-		int GetKeyCode() const noexcept { return m_KeyCode; }
+		KeyCode GetKeyCode() const noexcept { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryKeyboard);
 
 	protected:
-		KeyEvent(int keyCode) : m_KeyCode(keyCode) { }
+		KeyEvent(KeyCode keyCode) : m_KeyCode(keyCode) { }
 
-		int m_KeyCode;
+		KeyCode m_KeyCode;
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keyCode, bool isRepeat) : KeyEvent(keyCode), m_IsRepeat(isRepeat) { }
+		KeyPressedEvent(KeyCode keyCode, bool isRepeat) : KeyEvent(keyCode), m_IsRepeat(isRepeat) { }
 
 		bool IsRepeat() const noexcept { return m_IsRepeat; }
 
 		std::string ToString() const noexcept override
 		{
-			return "KeyPressedEvent: " + std::to_string(m_KeyCode) + ", repeat=" + std::to_string(m_IsRepeat);
+			return "KeyPressedEvent: " + KeyCodeToString(m_KeyCode) + ", repeat=" + std::to_string(m_IsRepeat);
 		}
 
 		EVENT_CLASS_TYPE(KeyPressed);
@@ -38,11 +38,11 @@ namespace Viscos {
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keyCode) : KeyEvent(keyCode) { }
+		KeyReleasedEvent(KeyCode keyCode) : KeyEvent(keyCode) { }
 
 		std::string ToString() const noexcept override
 		{
-			return "KeyReleasedEvent: " + std::to_string(m_KeyCode);
+			return "KeyReleasedEvent: " + KeyCodeToString(m_KeyCode);
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased);

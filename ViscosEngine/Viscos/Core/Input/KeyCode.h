@@ -26,4 +26,6 @@ namespace Viscos {
 
 	constexpr size_t KeyCodeCount = static_cast<size_t>(KeyCode::Count);
 
+	std::string KeyCodeToString(KeyCode keyCode) noexcept;
+
 }
