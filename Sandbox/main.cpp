@@ -1,5 +1,5 @@
 #include <Viscos/Viscos.h>
-#include <Viscos/Events/KeyEvents.h>
+#include <Viscos/Core/EntryPoint.h>
 
 using namespace Viscos;
 
@@ -75,20 +75,23 @@ public:
 	}
 };
 
-int main(int argc, char** argv)
+class Sandbox : public Viscos::Application
+{
+public:
+	Sandbox(const ApplicationSpecification& as) : Application(as)
+	{
+		auto testLayer = std::make_unique<TestLayer>("Gameplay");
+		auto testOverlay = std::make_unique<TestOverlay>("Debug");
+
+		PushLayer(std::move(testLayer));
+		PushOverlay(std::move(testOverlay));
+	}
+};
+
+Application* Viscos::CreateApplication()
 {
 	ApplicationSpecification as{};
 	as.Name = "Viscos Engine Sandbox";
 
-	Application app(as);
-
-	auto testLayer = std::make_unique<TestLayer>("Gameplay");
-	auto testOverlay = std::make_unique<TestOverlay>("Debug");
-
-	app.PushLayer(std::move(testLayer));
-	app.PushOverlay(std::move(testOverlay));
-
-	app.Run();
-
-	return 0;
+	return new Sandbox(as);
 }
