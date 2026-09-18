@@ -22,13 +22,17 @@ public:
 
 	void OnEvent(Event& e) override
 	{
-		VSCS_INFO("{} received event: {}", GetName(), e.ToString());
+		/*VSCS_INFO("{} received event: {}", GetName(), e.ToString());
 		e.Handled = true;
-		VSCS_INFO("{} handled event: {}", GetName(), e.ToString());
+		VSCS_INFO("{} handled event: {}", GetName(), e.ToString());*/
 	}
 
 	void OnUpdate() override
 	{
+		if (Input::IsKeyPressed(KeyCode::Escape))
+		{
+			VSCS_INFO("ESC Key Pressed!");
+		}
 		//VSCS_INFO("{} updated", GetName());
 	}
 
@@ -57,7 +61,7 @@ public:
 
 	void OnEvent(Event& e) override
 	{
-		VSCS_INFO("{} received event: {}", GetName(), e.ToString());
+		/*VSCS_INFO("{} received event: {}", GetName(), e.ToString());*/
 	}
 
 	void OnUpdate() override

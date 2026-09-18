@@ -3,21 +3,17 @@
 #include "Viscos/Core/API.h"
 #include "KeyCode.h"
 
-#include <memory>
-
 namespace Viscos {
 
 	class InputProvider;
 
 	class VISCOS_API Input
 	{
+		friend class Application;
 	public:
-		static bool IsKeyPressed(KeyCode key);
-		
-		static void SetProvider(InputProvider* provider);
-
+		static bool IsKeyPressed(KeyCode key) noexcept;
 	private:
-		static InputProvider* s_Provider;
+		static void SetKeyPressed(KeyCode key, bool pressed) noexcept;
 	};
 
 }

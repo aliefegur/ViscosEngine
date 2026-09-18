@@ -43,8 +43,6 @@ target_sources(ViscosEngine
         Viscos/Events/Event.cpp
         Viscos/Platform/Windows/Win32Window.h
         Viscos/Platform/Windows/Win32Window.cpp
-        Viscos/Platform/Windows/Win32Input.h
-        Viscos/Platform/Windows/Win32Input.cpp
     PUBLIC FILE_SET HEADERS
         FILES 
             Viscos/Viscos.h
@@ -56,7 +54,6 @@ target_sources(ViscosEngine
             Viscos/Core/Log.h
             Viscos/Core/Window.h
             Viscos/Core/Input/Input.h
-            Viscos/Core/Input/InputProvider.h
             Viscos/Core/Input/KeyCode.h
             Viscos/Events/Event.h
             Viscos/Events/WindowEvents.h

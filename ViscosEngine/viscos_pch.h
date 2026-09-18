@@ -4,6 +4,8 @@
 #include <Windows.h>
 #endif
 
+#include <bitset>
+#include <queue>
 #include <vector>
 #include <string>
 #include <iostream>

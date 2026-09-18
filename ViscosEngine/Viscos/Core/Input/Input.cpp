@@ -1,20 +1,27 @@
 #include "Input.h"
-#include "InputProvider.h"
 
 namespace Viscos {
 
-	InputProvider* Input::s_Provider = nullptr;
+	static std::bitset<KeyCodeCount> s_KeyStates;
 
-	bool Input::IsKeyPressed(KeyCode key)
+	bool Input::IsKeyPressed(KeyCode key) noexcept
 	{
-		assert(s_Provider && "Input provider has not been initialized!");
-		return s_Provider->IsKeyPressed(key);
+		const auto index = static_cast<size_t>(key);
+
+		if (index >= KeyCodeCount)
+			return false;
+
+		return s_KeyStates[index];
 	}
 
-	void Input::SetProvider(InputProvider* provider)
+	void Input::SetKeyPressed(KeyCode key, bool pressed) noexcept
 	{
-		assert(provider && "Input provider cannot be null");
-		s_Provider = provider;
+		const auto index = static_cast<size_t>(key);
+
+		if (index >= KeyCodeCount)
+			return;
+
+		s_KeyStates[index] = pressed;
 	}
 
 }

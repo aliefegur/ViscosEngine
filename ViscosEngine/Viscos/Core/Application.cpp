@@ -1,6 +1,8 @@
 #include "Application.h"
 
 #include "Log.h"
+#include "Viscos/Events/KeyEvents.h"
+#include "Input/Input.h"
 
 namespace Viscos {
 
@@ -33,9 +35,34 @@ namespace Viscos {
 
 	void Application::OnEvent(Event& e)
 	{
-		if (e.GetEventType() == EventType::WindowClose)
+		// Event type & category
+		const auto type = e.GetEventType();
+		const auto categoryFlags = e.GetCategoryFlags();
+
+		// Window close event
+		if (type == EventType::WindowClose)
 		{
 			m_Running = false;
+		}
+
+		// Key events
+		if (categoryFlags & (EventCategoryInput | EventCategoryKeyboard))
+		{
+			const KeyEvent& event = static_cast<KeyEvent&>(e);
+			const auto keyCode = event.GetKeyCode();
+
+			switch (type)
+			{
+			case EventType::KeyPressed:
+				Input::SetKeyPressed(keyCode, true);
+				break;
+			case EventType::KeyReleased:
+				Input::SetKeyPressed(keyCode, false);
+				break;
+			default:
+				VSCS_CORE_WARN("Event Category & Type mismatch! ({}), Category Flags: {}, Type: {}", e.ToString(), e.GetCategoryFlags(), static_cast<int>(e.GetEventType()));
+				break;
+			}
 		}
 
 		m_LayerStack.OnEvent(e);
