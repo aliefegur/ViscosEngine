@@ -8,7 +8,7 @@
 
 namespace Viscos {
 
-	static KeyCode TranslateKeyCode(uint32_t virtualKey);
+	static KeyCode TranslateKeyCode(uint32_t virtualKey, LPARAM lParam);
 
 	class Win32WindowClass
 	{
@@ -208,15 +208,15 @@ namespace Viscos {
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
 		{
-			const KeyCode key = TranslateKeyCode(static_cast<uint32_t>(wParam));
-			DispatchEvent<KeyPressedEvent>(key, lParam & 0x40000000);
+			const KeyCode key = TranslateKeyCode(static_cast<uint32_t>(wParam), lParam);
+			DispatchEvent<KeyPressedEvent>(key, (static_cast<uint32_t>(lParam) & 0x40000000) != 0);
 			return 0;
 		}
 
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
 		{
-			const KeyCode key = TranslateKeyCode(static_cast<uint32_t>(wParam));
+			const KeyCode key = TranslateKeyCode(static_cast<uint32_t>(wParam), lParam);
 			DispatchEvent<KeyReleasedEvent>(key);
 			return 0;
 		}
@@ -226,61 +226,102 @@ namespace Viscos {
 		}
 	}
 
-	KeyCode TranslateKeyCode(uint32_t virtualKey)
+	KeyCode TranslateKeyCode(uint32_t virtualKey, LPARAM lParam)
 	{
+		VSCS_CORE_TRACE(virtualKey);
+
 		switch (virtualKey)
 		{
-		case VK_SPACE:    return KeyCode::Space;
-		case VK_ESCAPE:   return KeyCode::Escape;
-		case VK_RETURN:   return KeyCode::Enter;
-		case VK_TAB:      return KeyCode::Tab;
-		case VK_BACK:     return KeyCode::Backspace;
-		case VK_INSERT:   return KeyCode::Insert;
-		case VK_DELETE:   return KeyCode::Delete;
+		case VK_SHIFT:
+		{
+			const uint32_t scanCode = (static_cast<uint32_t>(lParam) >> 16) & 0xFF;
+			return scanCode == 0x36 ? KeyCode::RightShift : KeyCode::LeftShift;
+		}
 
-		case VK_RIGHT:    return KeyCode::Right;
-		case VK_LEFT:     return KeyCode::Left;
-		case VK_DOWN:     return KeyCode::Down;
-		case VK_UP:       return KeyCode::Up;
+		case VK_CONTROL:
+		{
+			const bool extended = (static_cast<uint32_t>(lParam) & 0x01000000) != 0;
+			return extended ? KeyCode::RightControl : KeyCode::LeftControl;
+		}
 
-		case VK_PRIOR:    return KeyCode::PageUp;
-		case VK_NEXT:     return KeyCode::PageDown;
-		case VK_HOME:     return KeyCode::Home;
-		case VK_END:      return KeyCode::End;
+		case VK_MENU:
+		{
+			const bool extended = (static_cast<uint32_t>(lParam) & 0x01000000) != 0;
+			return extended ? KeyCode::RightAlt : KeyCode::LeftAlt;
+		}
 
-		case VK_CAPITAL:  return KeyCode::CapsLock;
-		case VK_SCROLL:   return KeyCode::ScrollLock;
-		case VK_NUMLOCK:  return KeyCode::NumLock;
+		case VK_SPACE:	return KeyCode::Space;
+		case VK_ESCAPE:	return KeyCode::Escape;
+		case VK_RETURN:	return KeyCode::Enter;
+		case VK_TAB:	return KeyCode::Tab;
+		case VK_BACK:	return KeyCode::Backspace;
+		case VK_INSERT:	return KeyCode::Insert;
+		case VK_DELETE:	return KeyCode::Delete;
 
-		case VK_SNAPSHOT: return KeyCode::PrintScreen;
-		case VK_PAUSE:    return KeyCode::Pause;
+		case VK_RIGHT:		return KeyCode::Right;
+		case VK_LEFT:		return KeyCode::Left;
+		case VK_DOWN:		return KeyCode::Down;
+		case VK_UP:			return KeyCode::Up;
 
-		case VK_F1:       return KeyCode::F1;
-		case VK_F2:       return KeyCode::F2;
-		case VK_F3:       return KeyCode::F3;
-		case VK_F4:       return KeyCode::F4;
-		case VK_F5:       return KeyCode::F5;
-		case VK_F6:       return KeyCode::F6;
-		case VK_F7:       return KeyCode::F7;
-		case VK_F8:       return KeyCode::F8;
-		case VK_F9:       return KeyCode::F9;
-		case VK_F10:      return KeyCode::F10;
-		case VK_F11:      return KeyCode::F11;
-		case VK_F12:      return KeyCode::F12;
+		case VK_PRIOR:		return KeyCode::PageUp;
+		case VK_NEXT:		return KeyCode::PageDown;
+		case VK_HOME:		return KeyCode::Home;
+		case VK_END:		return KeyCode::End;
 
-		case VK_LSHIFT:   return KeyCode::LeftShift;
-		case VK_RSHIFT:   return KeyCode::RightShift;
-		case VK_LCONTROL: return KeyCode::LeftControl;
-		case VK_RCONTROL: return KeyCode::RightControl;
-		case VK_LMENU:    return KeyCode::LeftAlt;
-		case VK_RMENU:    return KeyCode::RightAlt;
-		case VK_LWIN:     return KeyCode::LeftSuper;
-		case VK_RWIN:     return KeyCode::RightSuper;
+		case VK_CAPITAL:	return KeyCode::CapsLock;
+		case VK_SCROLL:		return KeyCode::ScrollLock;
+		case VK_NUMLOCK:	return KeyCode::NumLock;
 
-		case VK_APPS:     return KeyCode::Menu;
+		case VK_SNAPSHOT:	return KeyCode::PrintScreen;
+		case VK_PAUSE:		return KeyCode::Pause;
 
-		default:
-			break;
+		case VK_F1:		return KeyCode::F1;
+		case VK_F2:		return KeyCode::F2;
+		case VK_F3:		return KeyCode::F3;
+		case VK_F4:		return KeyCode::F4;
+		case VK_F5:		return KeyCode::F5;
+		case VK_F6:		return KeyCode::F6;
+		case VK_F7:		return KeyCode::F7;
+		case VK_F8:		return KeyCode::F8;
+		case VK_F9:		return KeyCode::F9;
+		case VK_F10:	return KeyCode::F10;
+		case VK_F11:	return KeyCode::F11;
+		case VK_F12:	return KeyCode::F12;
+
+		case VK_NUMPAD0:	return KeyCode::Num0;
+		case VK_NUMPAD1:	return KeyCode::Num1;
+		case VK_NUMPAD2:	return KeyCode::Num2;
+		case VK_NUMPAD3:	return KeyCode::Num3;
+		case VK_NUMPAD4:	return KeyCode::Num4;
+		case VK_NUMPAD5:	return KeyCode::Num5;
+		case VK_NUMPAD6:	return KeyCode::Num6;
+		case VK_NUMPAD7:	return KeyCode::Num7;
+		case VK_NUMPAD8:	return KeyCode::Num8;
+		case VK_NUMPAD9:	return KeyCode::Num9;
+		case VK_DECIMAL:	return KeyCode::NumDecimal;
+		case VK_DIVIDE:		return KeyCode::NumDivide;
+		case VK_MULTIPLY:	return KeyCode::NumMultiply;
+		case VK_SUBTRACT:	return KeyCode::NumSubtract;
+		case VK_ADD:		return KeyCode::NumAdd;
+
+		case VK_APPS:	return KeyCode::Menu;
+
+		// OEM / punctuation keys
+		case VK_OEM_1:		return KeyCode::Semicolon;
+		case VK_OEM_PLUS:	return KeyCode::Equal;
+		case VK_OEM_COMMA:	return KeyCode::Comma;
+		case VK_OEM_MINUS:	return KeyCode::Minus;
+		case VK_OEM_PERIOD:	return KeyCode::Period;
+		case VK_OEM_2:		return KeyCode::Slash;
+		case VK_OEM_3:		return KeyCode::GraveAccent;
+		case VK_OEM_4:		return KeyCode::LeftBracket;
+		case VK_OEM_5:		return KeyCode::Backslash;
+		case VK_OEM_6:		return KeyCode::RightBracket;
+		case VK_OEM_7:		return KeyCode::Apostrophe;
+		case VK_OEM_8:      return KeyCode::OEM8;
+		case VK_OEM_102:    return KeyCode::OEM102;
+
+		default: break;
 		}
 
 		// Alphabetic keys
