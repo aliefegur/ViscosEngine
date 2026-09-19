@@ -38,8 +38,8 @@ target_sources(ViscosEngine
         Viscos/Core/LayerStack.cpp
         Viscos/Core/Log.cpp
         Viscos/Core/Window.cpp
-        Viscos/Core/Input/Input.cpp
-        Viscos/Core/Input/KeyCode.cpp
+        Viscos/Input/Input.cpp
+        Viscos/Input/KeyCode.cpp
         Viscos/Events/Event.cpp
         Viscos/Platform/Windows/Win32Window.h
         Viscos/Platform/Windows/Win32Window.cpp
@@ -54,8 +54,8 @@ target_sources(ViscosEngine
             Viscos/Core/LayerStack.h
             Viscos/Core/Log.h
             Viscos/Core/Window.h
-            Viscos/Core/Input/Input.h
-            Viscos/Core/Input/KeyCode.h
+            Viscos/Input/Input.h
+            Viscos/Input/KeyCode.h
             Viscos/Events/Event.h
             Viscos/Events/WindowEvents.h
             Viscos/Events/KeyEvents.h

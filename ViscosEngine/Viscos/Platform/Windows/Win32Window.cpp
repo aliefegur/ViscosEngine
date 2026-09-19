@@ -1,7 +1,7 @@
 #include "Win32Window.h"
 
 #include "Viscos/Core/Log.h"
-#include "Viscos/Core/Input/Input.h"
+#include "Viscos/Input/Input.h"
 #include "Viscos/Events/KeyEvents.h"
 #include "Viscos/Events/MouseEvents.h"
 #include "Viscos/Events/WindowEvents.h"
@@ -228,8 +228,6 @@ namespace Viscos {
 
 	KeyCode TranslateKeyCode(uint32_t virtualKey, LPARAM lParam)
 	{
-		VSCS_CORE_TRACE(virtualKey);
-
 		switch (virtualKey)
 		{
 		case VK_SHIFT:

@@ -6,7 +6,7 @@
 #include "Core/Layer.h"
 #include "Core/LayerStack.h"
 
-#include "Core/Input/Input.h"
+#include "Input/Input.h"
 
 #include "Events/KeyEvents.h"
 #include "Events/MouseEvents.h"

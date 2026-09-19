@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Event.h"
-#include "Viscos/Core/Input/KeyCode.h"
+#include "Viscos/Input/KeyCode.h"
 
 namespace Viscos {
 

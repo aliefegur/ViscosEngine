@@ -2,7 +2,7 @@
 
 #include "Log.h"
 #include "Viscos/Events/KeyEvents.h"
-#include "Input/Input.h"
+#include "Viscos/Input/Input.h"i
 
 namespace Viscos {
 
