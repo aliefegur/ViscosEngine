@@ -1,8 +1,9 @@
 #include "Application.h"
 
 #include "Log.h"
+#include "Time.h"
 #include "Viscos/Events/KeyEvents.h"
-#include "Viscos/Input/Input.h"i
+#include "Viscos/Input/Input.h"
 
 namespace Viscos {
 
@@ -25,8 +26,12 @@ namespace Viscos {
 
 	void Application::Run()
 	{
+		Time::Init();
+
 		while (m_Running)
 		{
+			Time::Update();
+
 			m_Window->OnUpdate();
 			m_LayerStack.OnUpdate();
 			m_LayerStack.OnRender();

@@ -24,7 +24,6 @@ public:
 	{
 		VSCS_INFO("{} received event: {}", GetName(), e.ToString());
 		e.Handled = true;
-		/*VSCS_INFO("{} handled event: {}", GetName(), e.ToString());*/
 	}
 
 	void OnUpdate() override
@@ -33,12 +32,8 @@ public:
 		{
 			VSCS_INFO("ESC Key Pressed!");
 		}
-		//VSCS_INFO("{} updated", GetName());
-	}
-
-	void OnRender() override
-	{
-		//VSCS_INFO("{} rendered", GetName());
+		
+		VSCS_TRACE("Elapsed Time: {}\tDelta Time: {}", Time::ElapsedTime(), Time::DeltaTime());
 	}
 };
 

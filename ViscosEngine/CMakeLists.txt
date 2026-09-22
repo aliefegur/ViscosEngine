@@ -37,6 +37,7 @@ target_sources(ViscosEngine
         Viscos/Core/Application.cpp
         Viscos/Core/LayerStack.cpp
         Viscos/Core/Log.cpp
+        Viscos/Core/Time.cpp
         Viscos/Core/Window.cpp
         Viscos/Input/Input.cpp
         Viscos/Input/KeyCode.cpp
@@ -53,6 +54,7 @@ target_sources(ViscosEngine
             Viscos/Core/Layer.h
             Viscos/Core/LayerStack.h
             Viscos/Core/Log.h
+            Viscos/Core/Time.h
             Viscos/Core/Window.h
             Viscos/Input/Input.h
             Viscos/Input/KeyCode.h
