@@ -63,7 +63,10 @@ namespace Viscos {
 
 	float Time::FPS() noexcept
 	{
-		return s_FPS;
+		return	s_FPS == 0.0f ? 
+					s_DeltaTime == 0.0f ? 0.0f 
+					: 1.0f / s_DeltaTime 
+				: s_FPS;
 	}
 
 }
