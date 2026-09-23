@@ -10,12 +10,13 @@ namespace Viscos {
 	{
 		friend class Application;
 	private:
-		static void Init();
-		static void Update();
+		static void Init() noexcept;
+		static void Update() noexcept;
 	
 	public:
-		static double ElapsedTime();
-		static float DeltaTime();
+		static double ElapsedTime() noexcept;
+		static float DeltaTime() noexcept;
+		static float FPS() noexcept;
 
 	private:
 		using Clock = std::chrono::steady_clock;
@@ -25,6 +26,10 @@ namespace Viscos {
 
 		static float s_DeltaTime;
 		static double s_ElapsedTime;
+		
+		static float s_FPS;
+		static float s_FPSTimer;
+		static uint32_t s_FPSFrameCount;
 	};
 
 }

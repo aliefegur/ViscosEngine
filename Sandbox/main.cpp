@@ -33,7 +33,7 @@ public:
 			VSCS_INFO("ESC Key Pressed!");
 		}
 		
-		VSCS_TRACE("Elapsed Time: {}\tDelta Time: {}", Time::ElapsedTime(), Time::DeltaTime());
+		VSCS_TRACE("Elapsed Time: {}\tDelta Time: {}\tFramerate: {} FPS", Time::ElapsedTime(), Time::DeltaTime(), Time::FPS());
 	}
 };
 
