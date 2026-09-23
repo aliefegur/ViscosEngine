@@ -35,6 +35,8 @@ namespace Viscos {
 			m_Window->OnUpdate();
 			m_LayerStack.OnUpdate();
 			m_LayerStack.OnRender();
+
+			LimitFrameRate();
 		}
 	}
 
@@ -81,6 +83,30 @@ namespace Viscos {
 	void Application::PushOverlay(std::unique_ptr<Layer> overlay)
 	{
 		m_LayerStack.PushOverlay(std::move(overlay));
+	}
+
+	void Application::SetFrameRateLimit(uint32_t fps) noexcept
+	{
+		m_FrameRateLimit = fps;
+	}
+
+	uint32_t Application::GetFrameRateLimit() const noexcept
+	{
+		return m_FrameRateLimit;
+	}
+
+	void Application::LimitFrameRate()
+	{
+		if (m_FrameRateLimit == 0) return;
+
+		const auto current = std::chrono::steady_clock::now();
+		const auto targetFrameTime = std::chrono::duration<double>(1.0 / m_FrameRateLimit);
+		const auto frameTime = current - Time::s_LastFrameTime;
+		
+		if (frameTime < targetFrameTime)
+		{
+			std::this_thread::sleep_for(targetFrameTime - frameTime);
+		}
 	}
 
 }
