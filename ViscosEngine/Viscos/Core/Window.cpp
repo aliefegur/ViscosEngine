@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include "Viscos/Core/Log.h"
+#include "Viscos/Graphics/Graphics.h"
 
 #ifdef VISCOS_PLATFORM_WINDOWS
 #include "Viscos/Platform/Windows/Win32Window.h"
@@ -11,6 +12,11 @@ namespace Viscos {
 	void Window::SetEventCallback(const EventCallbackFn& callback)
 	{
 		m_EventCallback = std::move(callback);
+	}
+
+	void Window::InitializeGraphics(GraphicsAPI api)
+	{
+		m_Graphics = Graphics::Create(api, GetNativeWindow());
 	}
 
 	std::unique_ptr<Window> Window::Create(const WindowProperties& p)

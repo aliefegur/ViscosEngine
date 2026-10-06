@@ -98,6 +98,9 @@ namespace Viscos {
 			// TODO: Handla HRESULT exceptions
 		}
 
+		// Initialize graphics context
+		InitializeGraphics(props.GraphicsAPI);
+
 		ShowWindow(m_Hwnd, SW_SHOW);
 		UpdateWindow(m_Hwnd);
 	}
@@ -140,7 +143,7 @@ namespace Viscos {
 
 	void* Win32Window::GetNativeWindow() const
 	{
-		return static_cast<void*>(m_Hwnd);
+		return static_cast<NativeHandle>(m_Hwnd);
 	}
 
 	LRESULT Win32Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
