@@ -15,15 +15,15 @@ namespace Viscos {
 		Graphics& operator=(const Graphics&) = delete;
 		virtual ~Graphics() = default;
 
-		virtual void EndFrame() = 0;
+		virtual void Present() = 0;
 
-		GraphicsAPI GetAPI() const noexcept;
+		static GraphicsAPI GetAPI() noexcept;
 
 		// Factory function
 		static std::unique_ptr<Graphics> Create(GraphicsAPI api, NativeHandle nativeWindow);
 
 	protected:
-		GraphicsAPI m_TargetAPI;
+		static GraphicsAPI s_TargetAPI;
 		NativeHandle m_NativeWindow;
 	};
 

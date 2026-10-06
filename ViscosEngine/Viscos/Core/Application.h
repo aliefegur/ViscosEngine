@@ -12,7 +12,7 @@ namespace Viscos {
 	{
 	public:
 		Application(const ApplicationSpecification& appSpec = {});
-		virtual ~Application() = default;
+		virtual ~Application();
 
 		void Run();
 

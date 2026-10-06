@@ -70,7 +70,7 @@ namespace Viscos {
 
 		VSCS_CORE_TRACE("OpenGL Version: {}.{}", GLVersion.major, GLVersion.minor);
 
-		m_TargetAPI = GraphicsAPI::OpenGL;
+		s_TargetAPI = GraphicsAPI::OpenGL;
 	}
 
 	OpenGLGraphics::~OpenGLGraphics()
@@ -81,7 +81,7 @@ namespace Viscos {
 #endif
 	}
 
-	void OpenGLGraphics::EndFrame()
+	void OpenGLGraphics::Present()
 	{
 #ifdef VISCOS_PLATFORM_WINDOWS
 		if (SwapBuffers(m_Device) == FALSE)

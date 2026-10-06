@@ -42,9 +42,13 @@ target_sources(ViscosEngine
         Viscos/Input/Input.cpp
         Viscos/Input/KeyCode.cpp
         Viscos/Events/Event.cpp
-        Viscos/Graphics/Graphics.cpp        
+        Viscos/Graphics/Graphics.cpp
+        Viscos/Graphics/Renderer.cpp
+        Viscos/Graphics/RendererAPI.cpp
         Viscos/Platform/OpenGL/OpenGLGraphics.cpp
         Viscos/Platform/OpenGL/OpenGLGraphics.h
+        Viscos/Platform/OpenGL/OpenGLRendererAPI.cpp
+        Viscos/Platform/OpenGL/OpenGLRendererAPI.h
         Viscos/Platform/Windows/Win32Window.cpp
         Viscos/Platform/Windows/Win32Window.h
     PUBLIC FILE_SET HEADERS
@@ -67,6 +71,8 @@ target_sources(ViscosEngine
             Viscos/Events/MouseEvents.h
             Viscos/Graphics/Graphics.h
             Viscos/Graphics/GraphicsAPI.h
+            Viscos/Graphics/Renderer.h
+            Viscos/Graphics/RendererAPI.h
 )
 
 # Incude directories

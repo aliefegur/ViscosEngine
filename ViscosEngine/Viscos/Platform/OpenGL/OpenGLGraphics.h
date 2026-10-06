@@ -14,7 +14,7 @@ namespace Viscos {
 		OpenGLGraphics(const NativeHandle nativeWindow);
 		~OpenGLGraphics() override;
 
-		void EndFrame() override;
+		void Present() override;
 
 	private:
 #ifdef VISCOS_PLATFORM_WINDOWS

@@ -11,7 +11,7 @@ namespace Viscos {
 
 	void Window::OnUpdate()
 	{
-		m_Graphics->EndFrame();
+		m_Graphics->Present();
 	}
 	
 	void Window::SetEventCallback(const EventCallbackFn& callback)

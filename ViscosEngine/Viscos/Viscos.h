@@ -12,3 +12,5 @@
 #include "Events/KeyEvents.h"
 #include "Events/MouseEvents.h"
 #include "Events/WindowEvents.h"
+
+#include "Graphics/Renderer.h"

@@ -28,45 +28,7 @@ public:
 
 	void OnUpdate() override
 	{
-		if (Input::IsKeyPressed(KeyCode::Escape))
-		{
-			VSCS_INFO("ESC Key Pressed!");
-		}
-		
-		VSCS_TRACE("Elapsed Time: {}\tDelta Time: {}\tFramerate: {} FPS", Time::ElapsedTime(), Time::DeltaTime(), Time::FPS());
-	}
-};
-
-class TestOverlay : public Overlay
-{
-public:
-	TestOverlay(const std::string& name) : Overlay(name)
-	{
-	}
-
-	void OnAttach() override
-	{
-		VSCS_INFO("{} attached", GetName());
-	}
-
-	void OnDetach() override
-	{
-		VSCS_INFO("{} detached", GetName());
-	}
-
-	void OnEvent(Event& e) override
-	{
-		/*VSCS_INFO("{} received event: {}", GetName(), e.ToString());*/
-	}
-
-	void OnUpdate() override
-	{
-		//VSCS_INFO("{} update", GetName());
-	}
-
-	void OnRender() override
-	{
-		//VSCS_INFO("{} rendered", GetName());
+		Renderer::Clear(1.0f, 1.0f, 0.0f, 0.0001f);
 	}
 };
 
@@ -76,10 +38,8 @@ public:
 	Sandbox(const ApplicationSpecification& as) : Application(as)
 	{
 		auto testLayer = std::make_unique<TestLayer>("Gameplay");
-		auto testOverlay = std::make_unique<TestOverlay>("Debug");
 
 		PushLayer(std::move(testLayer));
-		PushOverlay(std::move(testOverlay));
 	}
 };
 

@@ -6,14 +6,16 @@
 
 namespace Viscos {
 
+	GraphicsAPI Graphics::s_TargetAPI = GraphicsAPI::None;
+
 	Graphics::Graphics(const NativeHandle nativeWindow)
 		: m_NativeWindow(nativeWindow)
 	{
 	}
 
-	GraphicsAPI Graphics::GetAPI() const noexcept
+	GraphicsAPI Graphics::GetAPI() noexcept
 	{
-		return m_TargetAPI;
+		return s_TargetAPI;
 	}
 
 	std::unique_ptr<Graphics> Graphics::Create(GraphicsAPI api, NativeHandle nativeWindow)

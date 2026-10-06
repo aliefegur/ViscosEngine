@@ -4,6 +4,7 @@
 #include "Time.h"
 #include "Viscos/Events/KeyEvents.h"
 #include "Viscos/Input/Input.h"
+#include "Viscos/Graphics/Renderer.h"
 
 namespace Viscos {
 
@@ -23,6 +24,13 @@ namespace Viscos {
 			{
 				OnEvent(e);
 			});
+
+		Renderer::Initialize();
+	}
+
+	Application::~Application()
+	{
+		Renderer::Shutdown();
 	}
 
 	void Application::Run()
