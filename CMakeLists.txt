@@ -14,6 +14,7 @@ endif()
 project ("ViscosEngine")
 
 # External libraries
+add_subdirectory("ThirdParty/glad")
 add_subdirectory("ThirdParty/spdlog")
 
 # Include sub-projects.

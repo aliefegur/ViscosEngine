@@ -6,12 +6,17 @@
 
 namespace Viscos {
 
+	Graphics::Graphics(const NativeHandle nativeWindow)
+		: m_NativeWindow(nativeWindow)
+	{
+	}
+
 	GraphicsAPI Graphics::GetAPI() const noexcept
 	{
 		return m_TargetAPI;
 	}
 
-	std::unique_ptr<Graphics> Graphics::Create(GraphicsAPI api, Window::NativeHandle nativeWindow)
+	std::unique_ptr<Graphics> Graphics::Create(GraphicsAPI api, NativeHandle nativeWindow)
 	{
 		switch (api)
 		{
@@ -19,7 +24,7 @@ namespace Viscos {
 			VSCS_CORE_ERROR("No graphics API specified!");
 			break;
 		case GraphicsAPI::OpenGL:
-			return std::make_unique<OpenGLGraphics>(api, nativeWindow);
+			return std::make_unique<OpenGLGraphics>(nativeWindow);
 		case GraphicsAPI::D3D11:
 			VSCS_CORE_ERROR("Viscos Engine currently does not support D3D11!");
 			break;

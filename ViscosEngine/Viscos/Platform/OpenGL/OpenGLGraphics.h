@@ -2,12 +2,25 @@
 
 #include "Viscos/Graphics/Graphics.h"
 
+#ifdef VISCOS_PLATFORM_WINDOWS
+#include <Windows.h>
+#endif
+
 namespace Viscos {
 
 	class OpenGLGraphics : public Graphics
 	{
-		OpenGLGraphics(const Window::NativeHandle nativeWindow) : Graphics(nativeWindow) {};
-		~OpenGLGraphics() = default;
+	public:
+		OpenGLGraphics(const NativeHandle nativeWindow);
+		~OpenGLGraphics() override;
+
+		void EndFrame() override;
+
+	private:
+#ifdef VISCOS_PLATFORM_WINDOWS
+		HGLRC	m_Context = nullptr;
+		HDC		m_Device = nullptr;
+#endif
 	};
 
 }

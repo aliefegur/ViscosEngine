@@ -14,7 +14,8 @@ namespace Viscos {
 		m_Window = Window::Create({ 
 			appSpec.Name, 
 			appSpec.Width, 
-			appSpec.Height 
+			appSpec.Height,
+			appSpec.GraphicsBackend
 		});
 		
 		m_Window->SetEventCallback(

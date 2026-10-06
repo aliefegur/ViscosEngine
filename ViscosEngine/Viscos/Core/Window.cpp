@@ -9,6 +9,11 @@
 
 namespace Viscos {
 
+	void Window::OnUpdate()
+	{
+		m_Graphics->EndFrame();
+	}
+	
 	void Window::SetEventCallback(const EventCallbackFn& callback)
 	{
 		m_EventCallback = std::move(callback);

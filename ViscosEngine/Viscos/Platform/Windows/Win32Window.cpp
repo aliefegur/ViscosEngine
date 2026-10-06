@@ -66,7 +66,7 @@ namespace Viscos {
 
 		constexpr DWORD windowStyle = WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SIZEBOX | WS_SYSMENU;
 
-		RECT windowRect;
+		RECT windowRect{};
 		windowRect.left = 100;
 		windowRect.right = m_Data.Width + windowRect.left;
 		windowRect.top = 100;
@@ -119,6 +119,8 @@ namespace Viscos {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
+
+		Window::OnUpdate();
 	}
 
 	uint32_t Win32Window::GetWidth() const

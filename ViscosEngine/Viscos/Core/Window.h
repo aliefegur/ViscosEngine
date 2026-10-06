@@ -1,8 +1,9 @@
 #pragma once
 
 #include "API.h"
+#include "NativeHandle.h"
 #include "Viscos/Events/Event.h"
-#include "Viscos/Graphics/GraphicsAPI.h"
+#include "Viscos/Graphics/Graphics.h"
 
 #include <string>
 #include <cstdint>
@@ -10,8 +11,6 @@
 #include <memory>
 
 namespace Viscos {
-
-	class Graphics;
 
 	struct WindowProperties
 	{
@@ -26,12 +25,11 @@ namespace Viscos {
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
-		using NativeHandle = void*;
 	
 	public:
 		virtual ~Window() = default;
 
-		virtual void OnUpdate() = 0;
+		virtual void OnUpdate();
 
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;

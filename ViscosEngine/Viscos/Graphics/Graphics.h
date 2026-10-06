@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Viscos/Core/Window.h"
+#include "GraphicsAPI.h"
+#include "Viscos/Core/NativeHandle.h"
 
 #include <memory>
 
@@ -9,7 +10,7 @@ namespace Viscos {
 	class Graphics
 	{
 	public:
-		Graphics(const Window::NativeHandle nativeWindow);
+		Graphics(const NativeHandle nativeWindow);
 		Graphics(const Graphics&) = delete;
 		Graphics& operator=(const Graphics&) = delete;
 		virtual ~Graphics() = default;
@@ -19,11 +20,11 @@ namespace Viscos {
 		GraphicsAPI GetAPI() const noexcept;
 
 		// Factory function
-		static std::unique_ptr<Graphics> Create(GraphicsAPI api, Window::NativeHandle nativeWindow);
+		static std::unique_ptr<Graphics> Create(GraphicsAPI api, NativeHandle nativeWindow);
 
 	protected:
 		GraphicsAPI m_TargetAPI;
-		Window::NativeHandle m_NativeWindow;
+		NativeHandle m_NativeWindow;
 	};
 
 }

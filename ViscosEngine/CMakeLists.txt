@@ -42,10 +42,11 @@ target_sources(ViscosEngine
         Viscos/Input/Input.cpp
         Viscos/Input/KeyCode.cpp
         Viscos/Events/Event.cpp
-        Viscos/Graphics/Graphics.cpp
+        Viscos/Graphics/Graphics.cpp        
+        Viscos/Platform/OpenGL/OpenGLGraphics.cpp
         Viscos/Platform/OpenGL/OpenGLGraphics.h
-        Viscos/Platform/Windows/Win32Window.h
         Viscos/Platform/Windows/Win32Window.cpp
+        Viscos/Platform/Windows/Win32Window.h
     PUBLIC FILE_SET HEADERS
         FILES 
             Viscos/Viscos.h
@@ -78,3 +79,4 @@ target_include_directories(ViscosEngine
 target_precompile_headers(ViscosEngine PRIVATE viscos_pch.h)
 
 target_link_libraries(ViscosEngine PUBLIC spdlog::spdlog)
+target_link_libraries(ViscosEngine PRIVATE glad opengl32)

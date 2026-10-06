@@ -31,7 +31,7 @@ namespace Viscos {
 		std::unique_ptr<Window> m_Window;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
-		uint32_t m_FrameRateLimit = 120;
+		uint32_t m_FrameRateLimit = 0;
 	};
 
 }
