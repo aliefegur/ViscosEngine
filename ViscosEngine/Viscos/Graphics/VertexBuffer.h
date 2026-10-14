@@ -15,6 +15,6 @@ namespace Viscos {
 		virtual ~VertexBuffer() = default;
 
 		static std::unique_ptr<VertexBuffer> Create(const void* data, size_t size, Usage u);
-	}
+	};
 
 }

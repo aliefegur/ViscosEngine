@@ -49,12 +49,15 @@ target_sources(ViscosEngine
         Viscos/Graphics/Graphics.cpp
         Viscos/Graphics/Renderer.cpp
         Viscos/Graphics/RendererAPI.cpp
+        Viscos/Graphics/IndexBuffer.cpp
         Viscos/Graphics/VertexBuffer.cpp
 
         Viscos/Platform/OpenGL/OpenGLGraphics.cpp
         Viscos/Platform/OpenGL/OpenGLGraphics.h
         Viscos/Platform/OpenGL/OpenGLRendererAPI.cpp
         Viscos/Platform/OpenGL/OpenGLRendererAPI.h
+        Viscos/Platform/OpenGL/OpenGLIndexBuffer.cpp
+        Viscos/Platform/OpenGL/OpenGLIndexBuffer.h
         Viscos/Platform/OpenGL/OpenGLVertexBuffer.cpp
         Viscos/Platform/OpenGL/OpenGLVertexBuffer.h
 
@@ -85,6 +88,7 @@ target_sources(ViscosEngine
             Viscos/Graphics/Buffer.h
             Viscos/Graphics/Graphics.h
             Viscos/Graphics/GraphicsAPI.h
+            Viscos/Graphics/IndexBuffer.h
             Viscos/Graphics/Renderer.h
             Viscos/Graphics/RendererAPI.h
             Viscos/Graphics/Vertex.h
