@@ -16,7 +16,7 @@ namespace Viscos {
 		virtual ~Buffer() = default;
 
 		virtual void SetData(const void* data, size_t size, size_t offset) = 0;
-		size_t GetSize();
+		size_t GetSize() const;
 
 		virtual void Bind() = 0;
 
