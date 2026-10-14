@@ -39,21 +39,31 @@ target_sources(ViscosEngine
         Viscos/Core/Log.cpp
         Viscos/Core/Time.cpp
         Viscos/Core/Window.cpp
+
         Viscos/Input/Input.cpp
         Viscos/Input/KeyCode.cpp
+
         Viscos/Events/Event.cpp
+
+        Viscos/Graphics/Buffer.cpp
         Viscos/Graphics/Graphics.cpp
         Viscos/Graphics/Renderer.cpp
         Viscos/Graphics/RendererAPI.cpp
+        Viscos/Graphics/VertexBuffer.cpp
+
         Viscos/Platform/OpenGL/OpenGLGraphics.cpp
         Viscos/Platform/OpenGL/OpenGLGraphics.h
         Viscos/Platform/OpenGL/OpenGLRendererAPI.cpp
         Viscos/Platform/OpenGL/OpenGLRendererAPI.h
+        Viscos/Platform/OpenGL/OpenGLVertexBuffer.cpp
+        Viscos/Platform/OpenGL/OpenGLVertexBuffer.h
+
         Viscos/Platform/Windows/Win32Window.cpp
         Viscos/Platform/Windows/Win32Window.h
     PUBLIC FILE_SET HEADERS
         FILES 
             Viscos/Viscos.h
+
             Viscos/Core/API.h
             Viscos/Core/Application.h
             Viscos/Core/ApplicationSpecification.h
@@ -63,16 +73,22 @@ target_sources(ViscosEngine
             Viscos/Core/Log.h
             Viscos/Core/Time.h
             Viscos/Core/Window.h
+
             Viscos/Input/Input.h
             Viscos/Input/KeyCode.h
+
             Viscos/Events/Event.h
             Viscos/Events/WindowEvents.h
             Viscos/Events/KeyEvents.h
             Viscos/Events/MouseEvents.h
+
+            Viscos/Graphics/Buffer.h
             Viscos/Graphics/Graphics.h
             Viscos/Graphics/GraphicsAPI.h
             Viscos/Graphics/Renderer.h
             Viscos/Graphics/RendererAPI.h
+            Viscos/Graphics/Vertex.h
+            Viscos/Graphics/VertexBuffer.h
 )
 
 # Incude directories
