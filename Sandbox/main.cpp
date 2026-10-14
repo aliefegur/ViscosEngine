@@ -28,7 +28,7 @@ public:
 
 	void OnUpdate() override
 	{
-		Renderer::Clear(1.0f, 1.0f, 0.0f, 0.0001f);
+		Renderer::Clear(0.20241011f);
 	}
 };
 

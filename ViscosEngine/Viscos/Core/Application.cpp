@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "Time.h"
 #include "Viscos/Events/KeyEvents.h"
+#include "Viscos/Events/WindowEvents.h"
 #include "Viscos/Input/Input.h"
 #include "Viscos/Graphics/Renderer.h"
 
@@ -59,6 +60,15 @@ namespace Viscos {
 		if (type == EventType::WindowClose)
 		{
 			m_Running = false;
+		}
+
+		// Window resize events, viewport update
+		// TODO: Move this operation into Engine Layer
+		// TODO: Use framebuffer size for viewport resize, not client dimensions!
+		if (type == EventType::WindowResize)
+		{
+			auto& _e = static_cast<WindowResizeEvent&>(e);
+			Renderer::SetViewport(0, 0, _e.GetWidth(), _e.GetHeight());
 		}
 
 		// Key events

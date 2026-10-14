@@ -60,14 +60,12 @@ namespace Viscos {
 		// Enable V-Sync
 		// TODO: Abstract V-Sync system
 		wglSwapIntervalEXT(1);
-		
-		// Initial Viewport
-		glViewport(0, 0, 1280, 720);
 
 		// Enable alpha blending
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		VSCS_CORE_TRACE("OpenGL context created!");
 		VSCS_CORE_TRACE("OpenGL Version: {}.{}", GLVersion.major, GLVersion.minor);
 
 		s_TargetAPI = GraphicsAPI::OpenGL;
