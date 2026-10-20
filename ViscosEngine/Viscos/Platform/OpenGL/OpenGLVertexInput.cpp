@@ -33,24 +33,24 @@ namespace Viscos {
 			case VertexAttribute::Type::UInt8: type = GL_UNSIGNED_BYTE; break;
 			}
 
-			switch (attrib.Type)
+			if (attrib.Type == VertexAttribute::Type::Float32 || attrib.Normalized)
 			{
-			case VertexAttribute::Type::Float32:
 				glVertexAttribPointer(
-					m_NextAttributeIndex, 
-					attrib.ComponentCount, 
-					type, 
-					attrib.Normalized, 
-					layout.GetStride(), 
+					m_NextAttributeIndex,
+					attrib.ComponentCount,
+					type,
+					attrib.Normalized ? GL_TRUE : GL_FALSE,
+					static_cast<GLsizei>(layout.GetStride()),
 					reinterpret_cast<const void*>(attrib.Offset)
 				);
-				break;
-			default:
+			}
+			else
+			{
 				glVertexAttribIPointer(
 					m_NextAttributeIndex,
 					attrib.ComponentCount,
 					type,
-					layout.GetStride(),
+					static_cast<GLsizei>(layout.GetStride()),
 					reinterpret_cast<const void*>(attrib.Offset)
 				);
 			}
