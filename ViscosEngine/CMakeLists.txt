@@ -51,6 +51,8 @@ target_sources(ViscosEngine
         Viscos/Graphics/RendererAPI.cpp
         Viscos/Graphics/IndexBuffer.cpp
         Viscos/Graphics/VertexBuffer.cpp
+        Viscos/Graphics/VertexBufferLayout.cpp
+        Viscos/Graphics/VertexInput.cpp
 
         Viscos/Platform/OpenGL/OpenGLGraphics.cpp
         Viscos/Platform/OpenGL/OpenGLGraphics.h
@@ -60,6 +62,8 @@ target_sources(ViscosEngine
         Viscos/Platform/OpenGL/OpenGLIndexBuffer.h
         Viscos/Platform/OpenGL/OpenGLVertexBuffer.cpp
         Viscos/Platform/OpenGL/OpenGLVertexBuffer.h
+        Viscos/Platform/OpenGL/OpenGLVertexInput.cpp
+        Viscos/Platform/OpenGL/OpenGLVertexInput.h
 
         Viscos/Platform/Windows/Win32Window.cpp
         Viscos/Platform/Windows/Win32Window.h
@@ -93,6 +97,8 @@ target_sources(ViscosEngine
             Viscos/Graphics/RendererAPI.h
             Viscos/Graphics/Vertex.h
             Viscos/Graphics/VertexBuffer.h
+            Viscos/Graphics/VertexBufferLayout.h
+            Viscos/Graphics/VertexInput.h
 )
 
 # Incude directories

@@ -51,7 +51,7 @@ namespace Viscos {
 		Bind();
 
 		glBufferSubData(
-			GL_ARRAY_BUFFER,
+			GL_ELEMENT_ARRAY_BUFFER,
 			static_cast<GLintptr>(offset),
 			static_cast<GLsizeiptr>(size),
 			data
