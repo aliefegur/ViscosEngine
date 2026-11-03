@@ -49,6 +49,8 @@ target_sources(ViscosEngine
         Viscos/Graphics/Graphics.cpp
         Viscos/Graphics/Renderer.cpp
         Viscos/Graphics/RendererAPI.cpp
+        Viscos/Graphics/Shader.cpp
+        Viscos/Graphics/ShaderProgram.cpp
         Viscos/Graphics/IndexBuffer.cpp
         Viscos/Graphics/VertexBuffer.cpp
         Viscos/Graphics/VertexBufferLayout.cpp
@@ -58,6 +60,10 @@ target_sources(ViscosEngine
         Viscos/Platform/OpenGL/OpenGLGraphics.h
         Viscos/Platform/OpenGL/OpenGLRendererAPI.cpp
         Viscos/Platform/OpenGL/OpenGLRendererAPI.h
+        Viscos/Platform/OpenGL/OpenGLShader.cpp
+        Viscos/Platform/OpenGL/OpenGLShader.h
+        Viscos/Platform/OpenGL/OpenGLShaderProgram.cpp
+        Viscos/Platform/OpenGL/OpenGLShaderProgram.h
         Viscos/Platform/OpenGL/OpenGLIndexBuffer.cpp
         Viscos/Platform/OpenGL/OpenGLIndexBuffer.h
         Viscos/Platform/OpenGL/OpenGLVertexBuffer.cpp
@@ -95,6 +101,8 @@ target_sources(ViscosEngine
             Viscos/Graphics/IndexBuffer.h
             Viscos/Graphics/Renderer.h
             Viscos/Graphics/RendererAPI.h
+            Viscos/Graphics/Shader.h
+            Viscos/Graphics/ShaderProgram.h
             Viscos/Graphics/Vertex.h
             Viscos/Graphics/VertexBuffer.h
             Viscos/Graphics/VertexBufferLayout.h
@@ -112,3 +120,10 @@ target_precompile_headers(ViscosEngine PRIVATE viscos_pch.h)
 
 target_link_libraries(ViscosEngine PUBLIC spdlog::spdlog)
 target_link_libraries(ViscosEngine PRIVATE glad opengl32)
+
+# Post-build commands
+add_custom_command(	TARGET ${PROJECT_NAME} POST_BUILD
+					COMMAND ${CMAKE_COMMAND} -E copy_directory
+					${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/res/
+					${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/res/
+					)
