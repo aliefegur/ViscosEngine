@@ -13,7 +13,7 @@ namespace Viscos {
 		~OpenGLVertexInput() override;
 
 		void AddVertexBuffer(VertexBuffer& buffer, VertexBufferLayout& layout) override;
-		void SetIndexBuffer(std::unique_ptr<IndexBuffer> buffer) override;
+		void SetIndexBuffer(IndexBuffer& buffer) override;
 
 		void Bind() override;
 

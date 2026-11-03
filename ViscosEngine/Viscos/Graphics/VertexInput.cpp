@@ -5,9 +5,9 @@
 
 namespace Viscos {
 
-	void VertexInput::SetIndexBuffer(std::unique_ptr<IndexBuffer> buffer)
+	void VertexInput::SetIndexBuffer(IndexBuffer& buffer)
 	{
-		m_IndexBuffer = std::move(buffer);
+		m_IndexBuffer = &buffer;
 	}
 	
 	const IndexBuffer& VertexInput::GetIndexBuffer() const

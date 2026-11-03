@@ -15,7 +15,7 @@ namespace Viscos {
 		virtual ~VertexInput() = default;
 
 		virtual void AddVertexBuffer(VertexBuffer& buffer, VertexBufferLayout& layout) = 0;
-		virtual void SetIndexBuffer(std::unique_ptr<IndexBuffer> buffer);
+		virtual void SetIndexBuffer(IndexBuffer& buffer);
 
 		virtual void Bind() = 0;
 
@@ -24,7 +24,7 @@ namespace Viscos {
 		static std::unique_ptr<VertexInput> Create();
 
 	protected:
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		IndexBuffer* m_IndexBuffer;
 	};
 
 }

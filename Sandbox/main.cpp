@@ -24,23 +24,25 @@ public:
 	void OnAttach() override
 	{
 		VSCS_INFO("{} attached", GetName());
+
 		m_ShaderProgram = ShaderProgram::Create();
 		m_ShaderProgram->Attach(Shader::CreateFromFile(Shader::Stage::Vertex, "res/GLShaders/Triangle.vert"));
 		m_ShaderProgram->Attach(Shader::CreateFromFile(Shader::Stage::Pixel, "res/GLShaders/Triangle.frag"));
 		m_ShaderProgram->Link();
-		VSCS_INFO("Shaders loaded.");
 
+		m_IndexBuffer = IndexBuffer::Create(indices, sizeof(indices), Buffer::Usage::Static, IndexBuffer::Type::Uint16);
 		m_VertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices), Buffer::Usage::Static);
-		VSCS_INFO("Vertex buffer created.");
-
-		m_VertexBufferLayout = std::make_unique<VertexBufferLayout>(3 * sizeof(float), std::initializer_list<VertexAttribute>{
-			{ VertexAttribute::Type::Float32, 3, 0, false }
-		});
-		VSCS_INFO("Vertex buffer layout created.");
+		
+		VertexBufferLayout vertexLayout(
+			3 * sizeof(float), 
+			std::initializer_list<VertexAttribute>{
+				{ VertexAttribute::Type::Float32, 3, 0, false }
+			}
+		);
 
 		m_VertexInput = VertexInput::Create();
-		m_VertexInput->AddVertexBuffer(*m_VertexBuffer, *m_VertexBufferLayout);
-		m_VertexInput->SetIndexBuffer(IndexBuffer::Create(indices, sizeof(indices), Buffer::Usage::Static, IndexBuffer::Type::Uint16));
+		m_VertexInput->AddVertexBuffer(*m_VertexBuffer, vertexLayout);
+		m_VertexInput->SetIndexBuffer(*m_IndexBuffer);
 
 		VSCS_INFO("Vertex input created.");
 	}
@@ -66,10 +68,10 @@ public:
 	}
 
 private:
-	std::unique_ptr<VertexInput> m_VertexInput;
-	std::unique_ptr<VertexBufferLayout> m_VertexBufferLayout;
-	std::unique_ptr<VertexBuffer> m_VertexBuffer;
 	std::unique_ptr<ShaderProgram> m_ShaderProgram;
+	std::unique_ptr<VertexInput> m_VertexInput;
+	std::unique_ptr<VertexBuffer> m_VertexBuffer;
+	std::unique_ptr<IndexBuffer> m_IndexBuffer;
 };
 
 class Sandbox : public Viscos::Application
