@@ -15,6 +15,7 @@ namespace Viscos {
 			: NULL
 		);
 
+		m_Count = size / GetIndexSize();
 		m_Size = size;
 	}
 
@@ -56,6 +57,17 @@ namespace Viscos {
 			static_cast<GLsizeiptr>(size),
 			data
 		);
+	}
+
+	GLenum OpenGLIndexBuffer::TranslateType(Type type)
+	{
+		switch (type)
+		{
+		case Type::Uint16:
+			return GL_UNSIGNED_SHORT;
+		case Type::Uint32:
+			return GL_UNSIGNED_INT;
+		}
 	}
 
 }

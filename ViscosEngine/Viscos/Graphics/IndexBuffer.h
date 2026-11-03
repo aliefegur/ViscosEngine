@@ -20,11 +20,13 @@ namespace Viscos {
 		Type GetType() const;
 
 		size_t GetIndexSize() const;
+		size_t GetCount() const;
 
 		static std::unique_ptr<IndexBuffer> Create(const void* data, size_t size, Usage u, Type t);
 	
 	protected:
 		Type m_Type;
+		size_t m_Count;
 	};
 
 }

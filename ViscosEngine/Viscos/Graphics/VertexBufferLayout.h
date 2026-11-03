@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Viscos/Core/API.h"
+
 namespace Viscos {
 
 	struct VertexAttribute
@@ -21,7 +23,7 @@ namespace Viscos {
 		bool Normalized = false;
 	};
 
-	class VertexBufferLayout
+	class VISCOS_API VertexBufferLayout
 	{
 	public:
 		VertexBufferLayout(size_t stride, std::initializer_list<VertexAttribute> attributes);

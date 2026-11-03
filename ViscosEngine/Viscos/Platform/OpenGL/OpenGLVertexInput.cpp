@@ -59,10 +59,11 @@ namespace Viscos {
 		}
 	}
 
-	void OpenGLVertexInput::SetIndexBuffer(IndexBuffer& buffer)
+	void OpenGLVertexInput::SetIndexBuffer(std::unique_ptr<IndexBuffer> buffer)
 	{
 		Bind();
-		buffer.Bind();
+		buffer->Bind();
+		VertexInput::SetIndexBuffer(std::move(buffer));
 	}
 
 	void OpenGLVertexInput::Bind()

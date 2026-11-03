@@ -25,6 +25,11 @@ namespace Viscos {
 		}
 	}
 
+	size_t IndexBuffer::GetCount() const
+	{
+		return m_Count;
+	}
+
 	std::unique_ptr<IndexBuffer> IndexBuffer::Create(const void* data, size_t size, Usage u, Type t)
 	{
 		switch (Graphics::GetAPI())

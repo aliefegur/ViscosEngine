@@ -5,6 +5,16 @@
 
 namespace Viscos {
 
+	void VertexInput::SetIndexBuffer(std::unique_ptr<IndexBuffer> buffer)
+	{
+		m_IndexBuffer = std::move(buffer);
+	}
+	
+	const IndexBuffer& VertexInput::GetIndexBuffer() const
+	{
+		return *m_IndexBuffer;
+	}
+
 	std::unique_ptr<VertexInput> VertexInput::Create()
 	{
 		switch (Graphics::GetAPI())

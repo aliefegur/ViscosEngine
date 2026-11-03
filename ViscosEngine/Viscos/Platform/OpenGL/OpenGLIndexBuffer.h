@@ -17,6 +17,7 @@ namespace Viscos {
 
 		void SetData(const void* data, size_t size, size_t offset) override;
 
+		static GLenum TranslateType(Type type);
 
 	private:
 		GLuint m_EBO = 0;
