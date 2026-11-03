@@ -23,14 +23,14 @@ namespace Viscos {
 		bool Normalized = false;
 	};
 
-	class VISCOS_API VertexBufferLayout
+	class VertexBufferLayout
 	{
 	public:
-		VertexBufferLayout(size_t stride, std::initializer_list<VertexAttribute> attributes);
+		VISCOS_API VertexBufferLayout(size_t stride, std::initializer_list<VertexAttribute> attributes);
 		virtual ~VertexBufferLayout() = default;
 
-		size_t GetStride() const;
-		const std::vector<VertexAttribute>& GetAttributes() const;
+		VISCOS_API size_t GetStride() const;
+		VISCOS_API const std::vector<VertexAttribute>& GetAttributes() const;
 
 	private:
 		size_t m_Stride;

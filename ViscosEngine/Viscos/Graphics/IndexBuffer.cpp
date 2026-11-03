@@ -23,6 +23,9 @@ namespace Viscos {
 		case Viscos::IndexBuffer::Type::Uint32:
 			return 4;
 		}
+
+		VSCS_CORE_ERROR("Unsupported index buffer type!");
+		return 0;
 	}
 
 	size_t IndexBuffer::GetCount() const

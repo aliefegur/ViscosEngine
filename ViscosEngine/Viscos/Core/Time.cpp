@@ -2,8 +2,14 @@
 
 namespace Viscos {
 
-	Time::Clock::time_point Time::s_StartTime;
-	Time::Clock::time_point Time::s_LastFrameTime;
+	namespace {
+
+		using Clock = std::chrono::steady_clock;
+
+		static Clock::time_point s_StartTime;
+		static Clock::time_point s_LastFrameTime;
+
+	}
 
 	float Time::s_DeltaTime = 0.0f;
 	double Time::s_ElapsedTime = 0.0;

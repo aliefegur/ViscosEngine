@@ -8,7 +8,7 @@
 
 namespace Viscos {
 
-	class VISCOS_API LayerStack
+	class LayerStack
 	{
 	public:
 		using LayerContainer = std::vector<std::unique_ptr<Layer>>;

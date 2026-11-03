@@ -16,6 +16,7 @@ namespace Viscos {
 			}
 
 			VSCS_CORE_WARN("Unsupported shader stage!");
+			return 0;
 		}
 
 		std::string GetCompileLog(GLuint shader)

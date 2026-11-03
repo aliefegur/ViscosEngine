@@ -19,11 +19,6 @@ namespace Viscos {
 		static float FPS() noexcept;
 
 	private:
-		using Clock = std::chrono::steady_clock;
-
-		static Clock::time_point s_StartTime;
-		static Clock::time_point s_LastFrameTime;
-
 		static float s_DeltaTime;
 		static double s_ElapsedTime;
 		

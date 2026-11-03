@@ -1,13 +1,12 @@
 #pragma once
 
-#include "API.h"
 #include "Viscos/Graphics/GraphicsAPI.h"
 
 #include <string>
 
 namespace Viscos {
 
-	struct VISCOS_API ApplicationSpecification
+	struct ApplicationSpecification
 	{
 		std::string Name = "Viscos Application";
 		unsigned int Width = 1280;

@@ -68,6 +68,9 @@ namespace Viscos {
 		case Type::Uint32:
 			return GL_UNSIGNED_INT;
 		}
+
+		VSCS_CORE_ERROR("Unsupported index buffer type!");
+		return 0;
 	}
 
 }

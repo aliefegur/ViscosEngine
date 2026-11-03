@@ -21,7 +21,7 @@ namespace Viscos {
 		GraphicsAPI GraphicsAPI = GraphicsAPI::OpenGL;
 	};
 
-	class VISCOS_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
@@ -29,7 +29,7 @@ namespace Viscos {
 	public:
 		virtual ~Window() = default;
 
-		virtual void OnUpdate();
+		virtual VISCOS_API void OnUpdate();
 
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;
@@ -39,11 +39,11 @@ namespace Viscos {
 
 		virtual NativeHandle GetNativeWindow() const = 0;
 
-		void SetEventCallback(const EventCallbackFn& callback);
+		VISCOS_API void SetEventCallback(const EventCallbackFn& callback);
 
-		void InitializeGraphics(GraphicsAPI api);
+		VISCOS_API void InitializeGraphics(GraphicsAPI api);
 
-		static std::unique_ptr<Window> Create(const WindowProperties& props = WindowProperties{});
+		static VISCOS_API std::unique_ptr<Window> Create(const WindowProperties& props = WindowProperties{});
 
 	protected:
 		EventCallbackFn m_EventCallback;

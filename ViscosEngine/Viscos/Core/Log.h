@@ -7,17 +7,17 @@
 
 namespace Viscos {
 
-	class VISCOS_API Log 
+	class Log 
 	{
 	public:
-		static void Initialize();
+		static VISCOS_API void Initialize();
 
-		static std::shared_ptr<spdlog::logger>& GetCoreLogger()
+		static VISCOS_API std::shared_ptr<spdlog::logger>& GetCoreLogger()
         {
             return s_CoreLogger;
         }
 
-        static std::shared_ptr<spdlog::logger>& GetClientLogger()
+        static VISCOS_API std::shared_ptr<spdlog::logger>& GetClientLogger()
         {
             return s_ClientLogger;
         }

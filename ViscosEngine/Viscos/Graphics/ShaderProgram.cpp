@@ -20,6 +20,9 @@ namespace Viscos {
 		case GraphicsAPI::Vulkan:
 			VSCS_CORE_ERROR("Failed to create shader program: Viscos Engine does not support Vulkan!");
 			return nullptr;
+		default:
+			VSCS_CORE_ERROR("Failed to create shader program: Unsupported GraphicsAPI!");
+			return nullptr;
 		}
 	}
 

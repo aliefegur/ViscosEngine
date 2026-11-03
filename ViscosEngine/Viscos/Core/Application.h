@@ -8,30 +8,23 @@
 
 namespace Viscos {
 
-	class VISCOS_API Application 
+	class Application 
 	{
 	public:
-		Application(const ApplicationSpecification& appSpec = {});
-		virtual ~Application();
+		VISCOS_API Application(const ApplicationSpecification& appSpec = {});
+		virtual VISCOS_API ~Application();
 
-		void Run();
+		VISCOS_API void Run();
 
-		void OnEvent(Event& e);
+		VISCOS_API void OnEvent(Event& e);
 
-		void PushLayer(std::unique_ptr<Layer> layer);
-		void PushOverlay(std::unique_ptr<Layer> overlay);
-
-		void SetFrameRateLimit(uint32_t fps) noexcept;
-		uint32_t GetFrameRateLimit() const noexcept;
-
-	private:
-		void LimitFrameRate();
+		VISCOS_API void PushLayer(std::unique_ptr<Layer> layer);
+		VISCOS_API void PushOverlay(std::unique_ptr<Layer> overlay);
 
 	private:
 		std::unique_ptr<Window> m_Window;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
-		uint32_t m_FrameRateLimit = 0;
 	};
 
 }

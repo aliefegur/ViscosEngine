@@ -7,7 +7,7 @@
 
 namespace Viscos {
 
-	class VISCOS_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer") : m_Name(name) { };
@@ -25,7 +25,7 @@ namespace Viscos {
 		std::string m_Name;
 	};
 
-	class VISCOS_API Overlay : public Layer
+	class Overlay : public Layer
 	{
 	public:
 		Overlay(const std::string& name = "Overlay") : Layer(name) { }

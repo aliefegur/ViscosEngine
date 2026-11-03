@@ -70,7 +70,7 @@ namespace Viscos {
 
 		std::string ToString() const noexcept override 
 		{
-			return "WindowMovedEvent: " + std::to_string(m_X), ", " + std::to_string(m_Y);
+			return "WindowMovedEvent: " + std::to_string(m_X) + ", " + std::to_string(m_Y);
 		}
 
 		EVENT_CLASS_TYPE(WindowMoved);

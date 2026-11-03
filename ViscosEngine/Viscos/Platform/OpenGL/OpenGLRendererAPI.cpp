@@ -13,7 +13,22 @@ namespace Viscos {
 
 	void OpenGLRendererAPI::DrawIndexed(const VertexInput& input)
 	{
-		glDrawElements(GL_TRIANGLES, input.GetIndexBuffer().GetCount(), OpenGLIndexBuffer::TranslateType(input.GetIndexBuffer().GetType()), nullptr);
+		const auto& indexBuffer = input.GetIndexBuffer();
+		const auto count = indexBuffer.GetCount();
+		constexpr auto maxCount = static_cast<size_t>((std::numeric_limits<GLsizei>::max)());
+
+		if (count > maxCount)
+		{
+			VSCS_CORE_ERROR("Index count {} exceeds OpenGL limit {}!", count, maxCount);
+			return;
+		}
+
+		glDrawElements(
+			GL_TRIANGLES,
+			static_cast<GLsizei>(count),
+			OpenGLIndexBuffer::TranslateType(indexBuffer.GetType()),
+			nullptr
+		);
 	}
 
 	void OpenGLRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
