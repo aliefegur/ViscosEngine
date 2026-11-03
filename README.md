@@ -1,25 +1,21 @@
 # Viscos Engine
 
-Viscos Engine is a C++ game engine for indie-scale 2D and 3D games. Its initial development target is Windows PC. The long-term goal is to support stable releases on Windows, Linux, Android, and iOS.
+Viscos Engine is an open-source, general-purpose game engine written in C++20. The project explores computer graphics, framework design, and engine architecture through a working implementation. Its source code and engineering documentation provide a reference for developers studying how game engines are built.
 
-## Vision and scope
+## Design goals
 
-The engine aims to give a small game team a common technical foundation across different kinds of projects. Driving games and 2D and 3D adventures are representative use cases. They give system design decisions a practical test: which parts of a feature would a second game reuse, and which parts belong to the first game's design?
+Viscos aims to provide a clear, consistent interface for independent developers building 2D and 3D games. A central design goal is to let applications use the same engine interfaces across operating systems and graphics APIs. The project documents the reasoning behind those interfaces and the trade-offs encountered during development.
 
-## Technology and rendering roadmap
+## Development scope
 
-C++ is the engine's implementation language. Rendering support is planned in stages:
+The initial foundation includes window management, events, input, logging, application layers, and the main loop. The engine core and sandbox application use CMake, with Visual Studio as the Windows development environment and spdlog for logging. The next phase focuses on runtime timing and rendering architecture.
 
-| Stage | Graphics API | Development goal |
-| --- | --- | --- |
-| 1 | OpenGL | Prototype rendering features quickly and test them on Windows PC. |
-| 2 | Direct3D 11 | Implement a second backend and use it to establish a renderer-independent interface. |
-| 3 | Direct3D 12 and Vulkan | Extend the rendering architecture to support additional graphics APIs. |
+## Platform and rendering roadmap
 
-## How we build systems
+64-bit Windows is the first target for stable releases and the initial test platform for new features. Linux, Android, and iOS are longer-term targets.
 
-**Start with a game requirement.** A 2D adventure and a driving game may both need to draw a scene, but they have different rules for how the camera follows the player. The motivation for a shared system is to let both games reuse the drawing code while each game controls its camera behavior.
-
-**Test the rendering boundary with a second implementation.** An OpenGL prototype tells us what works with OpenGL. Implementing the same feature in Direct3D 11 gives us a concrete way to check whether game-facing code depends on OpenGL details. The goal is for a game to describe what it needs to draw while the backend handles the API-specific work.
-
-**Validate features on Windows first.** New features start on Windows PC, where the team can test their behavior before bringing them to the other target platforms. This sets the order of development while keeping Linux, Android, and iOS in scope when designing platform-dependent systems.
+| Planned graphics backend | Purpose |
+| --- | --- |
+| OpenGL | Prototype rendering features on Windows and establish the initial rendering interface. |
+| Direct3D 11 | Validate and refine that interface against a second graphics API. |
+| Direct3D 12 and Vulkan | Extend backend support once the common interface has been tested with OpenGL and Direct3D 11. |
