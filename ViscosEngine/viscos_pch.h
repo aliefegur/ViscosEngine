@@ -12,7 +12,9 @@
 #include <ostream>
 #include <sstream>
 #include <algorithm>
+#include <functional>
 #include <memory>
+#include <cstdio>
 #include <cstdlib>
 #include <cstddef>
 #include <cstdint>

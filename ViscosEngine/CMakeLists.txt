@@ -80,6 +80,7 @@ target_sources(ViscosEngine
             Viscos/Core/API.h
             Viscos/Core/Application.h
             Viscos/Core/ApplicationSpecification.h
+            Viscos/Core/Assert.h
             Viscos/Core/EntryPoint.h
             Viscos/Core/Layer.h
             Viscos/Core/LayerStack.h
@@ -107,7 +108,7 @@ target_sources(ViscosEngine
             Viscos/Graphics/VertexBuffer.h
             Viscos/Graphics/VertexBufferLayout.h
             Viscos/Graphics/VertexInput.h
-)
+ "Viscos/Core/Assert.h")
 
 # Incude directories
 target_include_directories(ViscosEngine 
