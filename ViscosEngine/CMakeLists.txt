@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.20)
+﻿cmake_minimum_required(VERSION 3.23)
 
 option(VISCOS_BUILD_SHARED "Build ViscosEngine as a shared library (.dll/.so)" ON)
 
@@ -58,22 +58,26 @@ target_sources(ViscosEngine
         Viscos/Graphics/VertexInput.cpp
 
         Viscos/Platform/OpenGL/OpenGLGraphics.cpp
-        Viscos/Platform/OpenGL/OpenGLGraphics.h
         Viscos/Platform/OpenGL/OpenGLRendererAPI.cpp
-        Viscos/Platform/OpenGL/OpenGLRendererAPI.h
         Viscos/Platform/OpenGL/OpenGLShader.cpp
-        Viscos/Platform/OpenGL/OpenGLShader.h
         Viscos/Platform/OpenGL/OpenGLShaderProgram.cpp
-        Viscos/Platform/OpenGL/OpenGLShaderProgram.h
         Viscos/Platform/OpenGL/OpenGLIndexBuffer.cpp
-        Viscos/Platform/OpenGL/OpenGLIndexBuffer.h
         Viscos/Platform/OpenGL/OpenGLVertexBuffer.cpp
-        Viscos/Platform/OpenGL/OpenGLVertexBuffer.h
         Viscos/Platform/OpenGL/OpenGLVertexInput.cpp
-        Viscos/Platform/OpenGL/OpenGLVertexInput.h
 
-        Viscos/Platform/Windows/Win32Window.cpp
-        Viscos/Platform/Windows/Win32Window.h
+    PRIVATE FILE_SET internal_headers
+    TYPE HEADERS
+        FILES
+            Viscos/Platform/OpenGL/OpenGLGraphics.h
+            Viscos/Platform/OpenGL/OpenGLRendererAPI.h
+            Viscos/Platform/OpenGL/OpenGLShader.h
+            Viscos/Platform/OpenGL/OpenGLShaderProgram.h
+            Viscos/Platform/OpenGL/OpenGLIndexBuffer.h
+            Viscos/Platform/OpenGL/OpenGLVertexBuffer.h
+            Viscos/Platform/OpenGL/OpenGLVertexInput.h
+
+            Viscos/Platform/Windows/Win32Window.h
+
     PUBLIC FILE_SET HEADERS
         FILES 
             Viscos/Viscos.h
@@ -87,6 +91,7 @@ target_sources(ViscosEngine
             Viscos/Core/Layer.h
             Viscos/Core/LayerStack.h
             Viscos/Core/Log.h
+            Viscos/Core/MessageDialog.h
             Viscos/Core/Time.h
             Viscos/Core/Window.h
 
@@ -110,7 +115,14 @@ target_sources(ViscosEngine
             Viscos/Graphics/VertexBuffer.h
             Viscos/Graphics/VertexBufferLayout.h
             Viscos/Graphics/VertexInput.h
-)
+ )
+
+ if (WIN32)
+    target_sources(ViscosEngine PRIVATE
+        Viscos/Platform/Windows/Win32MessageDialog.cpp
+        Viscos/Platform/Windows/Win32Window.cpp
+    )
+ endif()
 
 # Incude directories
 target_include_directories(ViscosEngine 
