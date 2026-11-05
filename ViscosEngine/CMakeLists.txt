@@ -35,6 +35,7 @@ target_sources(ViscosEngine
     PRIVATE 
         viscos_pch.h
         Viscos/Core/Application.cpp
+        Viscos/Core/Exception.cpp
         Viscos/Core/LayerStack.cpp
         Viscos/Core/Log.cpp
         Viscos/Core/Time.cpp
@@ -82,6 +83,7 @@ target_sources(ViscosEngine
             Viscos/Core/ApplicationSpecification.h
             Viscos/Core/Assert.h
             Viscos/Core/EntryPoint.h
+            Viscos/Core/Exception.h
             Viscos/Core/Layer.h
             Viscos/Core/LayerStack.h
             Viscos/Core/Log.h
@@ -108,7 +110,7 @@ target_sources(ViscosEngine
             Viscos/Graphics/VertexBuffer.h
             Viscos/Graphics/VertexBufferLayout.h
             Viscos/Graphics/VertexInput.h
- "Viscos/Core/Assert.h")
+)
 
 # Incude directories
 target_include_directories(ViscosEngine 

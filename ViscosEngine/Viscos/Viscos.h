@@ -6,6 +6,8 @@
 #include "Core/Window.h"
 #include "Core/Layer.h"
 #include "Core/LayerStack.h"
+#include "Core/Assert.h"
+#include "Core/Exception.h"
 
 #include "Input/Input.h"
 

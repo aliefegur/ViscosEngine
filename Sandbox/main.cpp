@@ -43,8 +43,6 @@ public:
 		m_VertexInput = VertexInput::Create();
 		m_VertexInput->AddVertexBuffer(*m_VertexBuffer, vertexLayout);
 		m_VertexInput->SetIndexBuffer(*m_IndexBuffer);
-
-		VSCS_INFO("Vertex input created.");
 	}
 
 	void OnDetach() override
@@ -87,6 +85,17 @@ public:
 
 Application* Viscos::CreateApplication()
 {
+	try
+	{
+		throw Viscos::ViscosException(
+			"Failed to initialize graphics subsystem!"
+		);
+	}
+	catch (const Viscos::ViscosException& e)
+	{
+		std::fprintf(stderr, "%s\n", e.what());
+	}
+
 	ApplicationSpecification as{};
 	as.Name = "Viscos Engine Sandbox";
 
