@@ -2,6 +2,7 @@
 
 #include "Log.h"
 #include "Time.h"
+#include "Viscos/Events/AppEvents.h"
 #include "Viscos/Events/KeyEvents.h"
 #include "Viscos/Events/WindowEvents.h"
 #include "Viscos/Input/Input.h"
@@ -42,52 +43,72 @@ namespace Viscos {
 		{
 			Time::Update();
 
-			m_Window->OnUpdate();
-			m_LayerStack.OnUpdate();
-			m_LayerStack.OnRender();
+			AppUpdateEvent updateEvent;
+			AppRenderEvent renderEvent;
+			
+			OnEvent(updateEvent);
+			OnEvent(renderEvent);
+
+			m_Window->Present();
 		}
 	}
 
 	void Application::OnEvent(Event& e)
 	{
-		// Event type & category
-		const auto type = e.GetEventType();
-		const auto categoryFlags = e.GetCategoryFlags();
+		// Gameloop events
+		switch (e.GetEventType())
+		{
+		case EventType::AppUpdate:
+			m_LayerStack.OnUpdate();
+			break;
+
+		case EventType::AppRender:
+			m_LayerStack.OnRender();
+			break;
+
+		default:
+			break;
+		}
+
+		EventDispatcher dispatcher(e);
 
 		// Window close event
-		if (type == EventType::WindowClose)
-		{
-			m_Running = false;
-		}
-
-		// Window resize events, viewport update
+		dispatcher.Dispatch<WindowCloseEvent>(
+			[this](WindowCloseEvent& event)
+			{
+				m_Running = false;
+				return false;
+			}
+		);
+		
 		// TODO: Move this operation into Engine Layer
 		// TODO: Use framebuffer size for viewport resize, not client dimensions!
-		if (type == EventType::WindowResize)
-		{
-			auto& _e = static_cast<WindowResizeEvent&>(e);
-			Renderer::SetViewport(0, 0, _e.GetWidth(), _e.GetHeight());
-		}
-
-		// Key events
-		if (categoryFlags & (EventCategoryInput | EventCategoryKeyboard))
-		{
-			const KeyEvent& event = static_cast<KeyEvent&>(e);
-			const auto keyCode = event.GetKeyCode();
-
-			switch (type)
+		// Window resize event
+		dispatcher.Dispatch<WindowResizeEvent>(
+			[](WindowResizeEvent& event)
 			{
-			case EventType::KeyPressed:
-				Input::SetKeyPressed(keyCode, true);
-				break;
-			case EventType::KeyReleased:
-				Input::SetKeyPressed(keyCode, false);
-				break;
-			default:
-				VSCS_CORE_WARN("Event Category & Type mismatch! ({}), Category Flags: {}, Type: {}", e.ToString(), e.GetCategoryFlags(), static_cast<int>(e.GetEventType()));
-				break;
+				Renderer::SetViewport(0, 0, event.GetWidth(), event.GetHeight());
+				return false;
 			}
-		}
+		);
+
+		// Key pressed event
+		dispatcher.Dispatch<KeyPressedEvent>(
+			[](KeyPressedEvent& event)
+			{
+				Input::SetKeyPressed(event.GetKeyCode(), true);
+				return false;
+			}
+		);
+
+		// Key released event
+		dispatcher.Dispatch<KeyReleasedEvent>(
+			[](KeyReleasedEvent& event)
+			{
+				Input::SetKeyPressed(event.GetKeyCode(), false);
+				return false;
+			}
+		);
 
 		m_LayerStack.OnEvent(e);
 	}

@@ -29,7 +29,7 @@ namespace Viscos {
 	public:
 		virtual ~Window() = default;
 
-		virtual VISCOS_API void OnUpdate();
+		virtual VISCOS_API void Present();
 
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;

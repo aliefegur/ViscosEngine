@@ -17,7 +17,6 @@ namespace Viscos {
         WindowLostFocus,
         WindowMoved,
 
-        AppTick,
         AppUpdate,
         AppRender,
 
@@ -52,9 +51,14 @@ namespace Viscos {
         
         virtual std::string ToString() const noexcept;
         
-        bool IsInCategory(EventCategory category) const noexcept;
+        bool IsHandled() const noexcept;
+        void Handle() noexcept;
 
-        bool Handled = false;
+        bool IsInCategory(EventCategory category) const noexcept;
+        bool CanBeHandled() const noexcept;
+
+    private:
+        bool m_Handled = false;
 	};
 
     class EventDispatcher
@@ -67,7 +71,9 @@ namespace Viscos {
         {
             if (m_Event.GetEventType() == T::GetStaticType())
             {
-                m_Event.Handled |= func(static_cast<T&>(m_Event));
+                if (func(static_cast<T&>(m_Event)))
+                    m_Event.Handle();
+
                 return true;
             }
 

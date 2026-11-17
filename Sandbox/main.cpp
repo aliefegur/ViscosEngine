@@ -52,12 +52,11 @@ public:
 
 	void OnEvent(Event& e) override
 	{
-		
 	}
 
-	void OnUpdate() override
+	void OnRender() override
 	{
-		Renderer::Clear(0.20241011f);
+		Renderer::Clear(0.20241023f);
 
 		m_ShaderProgram->Bind();
 		m_VertexInput->Bind();

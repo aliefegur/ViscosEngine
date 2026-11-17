@@ -98,6 +98,7 @@ target_sources(ViscosEngine
             Viscos/Input/Input.h
             Viscos/Input/KeyCode.h
 
+            Viscos/Events/AppEvents.h
             Viscos/Events/Event.h
             Viscos/Events/WindowEvents.h
             Viscos/Events/KeyEvents.h
@@ -115,7 +116,7 @@ target_sources(ViscosEngine
             Viscos/Graphics/VertexBuffer.h
             Viscos/Graphics/VertexBufferLayout.h
             Viscos/Graphics/VertexInput.h
- )
+            )
 
  if (WIN32)
     target_sources(ViscosEngine PRIVATE

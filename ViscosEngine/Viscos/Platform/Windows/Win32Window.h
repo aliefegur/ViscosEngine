@@ -13,7 +13,7 @@ namespace Viscos {
 		Win32Window(const WindowProperties& props);
 		~Win32Window() override;
 
-		void OnUpdate() override;
+		void Present() override;
 
 		uint32_t GetWidth() const override;
 		uint32_t GetHeight() const override;

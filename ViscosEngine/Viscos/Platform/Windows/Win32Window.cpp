@@ -114,7 +114,7 @@ namespace Viscos {
 		DestroyWindow(m_Hwnd);
 	}
 
-	void Win32Window::OnUpdate()
+	void Win32Window::Present()
 	{
 		MSG msg;
 
@@ -124,7 +124,7 @@ namespace Viscos {
 			DispatchMessage(&msg);
 		}
 
-		Window::OnUpdate();
+		Window::Present();
 	}
 
 	uint32_t Win32Window::GetWidth() const

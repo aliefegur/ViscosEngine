@@ -80,7 +80,7 @@ namespace Viscos {
 		{
 			(*it)->OnEvent(e);
 			
-			if (e.Handled) 
+			if (e.IsHandled()) 
 				break;
 		}
 	}

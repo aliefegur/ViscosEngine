@@ -9,7 +9,7 @@
 
 namespace Viscos {
 
-	void Window::OnUpdate()
+	void Window::Present()
 	{
 		m_Graphics->Present();
 	}
