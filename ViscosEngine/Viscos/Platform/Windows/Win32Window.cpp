@@ -1,6 +1,7 @@
 #include "Win32Window.h"
 
 #include "Viscos/Core/Log.h"
+#include "Viscos/Core/Exception.h"
 #include "Viscos/Input/Input.h"
 #include "Viscos/Events/KeyEvents.h"
 #include "Viscos/Events/MouseEvents.h"
@@ -74,8 +75,7 @@ namespace Viscos {
 
 		if (AdjustWindowRect(&windowRect, windowStyle, FALSE) == 0)
 		{
-			VSCS_CORE_ERROR("Failed to adjust window rectangle!");
-			// TODO: Handle HRESULT exceptions
+			throw ViscosException("Failed to adjust window rectangle!");
 		}
 
 		const int windowWidth = windowRect.right - windowRect.left;
@@ -94,8 +94,12 @@ namespace Viscos {
 
 		if (m_Hwnd == nullptr)
 		{
-			VSCS_CORE_ERROR("Failed to create Win32Window!");
-			// TODO: Handla HRESULT exceptions
+			const DWORD errorCode = GetLastError();
+
+			throw ViscosException(std::format(
+				"Failed to create Win32Window! Error code: 0x{:08x}",
+				errorCode
+			));
 		}
 
 		// Initialize graphics context

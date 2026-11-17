@@ -1,11 +1,10 @@
 #include "OpenGLGraphics.h"
 
 #include "Viscos/Core/Log.h"
+#include "Viscos/Core/Exception.h"
 
 #include <glad/glad.h>
 #include <glad/glad_wgl.h>
-
-// TODO: Implement an internal exception system!
 
 namespace Viscos {
 
@@ -34,32 +33,76 @@ namespace Viscos {
 		};
 
 		m_Device = GetDC(static_cast<HWND>(nativeWindow));
+		if (!m_Device)
+			throw ViscosException("Failed to get OpenGL device!");
 
-		int letWindowChoosePixelFormat = ChoosePixelFormat(m_Device, &pfd);
-		SetPixelFormat(m_Device, letWindowChoosePixelFormat, &pfd);
+		int pixelFormat = ChoosePixelFormat(m_Device, &pfd);
+		if (pixelFormat == 0)
+		{
+			const DWORD errorCode = GetLastError();
+			ReleaseDC(static_cast<HWND>(m_NativeWindow), m_Device);
+			throw ViscosException(std::format("Failed to choose pixel format! Error code: 0x{:08x}", errorCode));
+		}
+
+		if (!SetPixelFormat(m_Device, pixelFormat, &pfd))
+		{
+			const DWORD errorCode = GetLastError();
+			ReleaseDC(static_cast<HWND>(m_NativeWindow), m_Device);
+			throw ViscosException(std::format("Failed to set pixel format! Error code: 0x{:08x}", errorCode));
+		}
 #endif
 
 		// Context
 		m_Context = wglCreateContext(m_Device);
-
-		// Make context current
-		wglMakeCurrent(m_Device, m_Context);
-
-		// Load modern OpenGL via glad library
-		if (!gladLoadGL())
+		if (!m_Context)
 		{
-			VSCS_CORE_ERROR("Failed to load modern OpenGL functions!");
+#ifdef VISCOS_PLATFORM_WINDOWS
+			ReleaseDC(static_cast<HWND>(m_NativeWindow), m_Device);
+#endif
+			throw ViscosException("Failed to create OpenGL context!");
 		}
 
-		// We are going to WGL for V-Sync
-		if (!gladLoadWGL(m_Device))
+		// Make context current
+		if (!wglMakeCurrent(m_Device, m_Context))
 		{
-			VSCS_CORE_ERROR("Failed to load WGL functions!");
+			wglDeleteContext(m_Context);
+#ifdef VISCOS_PLATFORM_WINDOWS
+			ReleaseDC(static_cast<HWND>(m_NativeWindow), m_Device);
+#endif
+			throw ViscosException("Failed to make OpenGL context current!");
+		}
+
+		// Load modern OpenGL via glad library
+		if (!gladLoadGL()) {
+			wglMakeCurrent(nullptr, nullptr);
+			wglDeleteContext(m_Context);
+#ifdef VISCOS_PLATFORM_WINDOWS
+			ReleaseDC(static_cast<HWND>(m_NativeWindow), m_Device);
+#endif
+			throw ViscosException("Failed to load modern OpenGL functions!");
+		}
+		
+		// Loading WGL functions for OpenGL context management
+		if (!gladLoadWGL(m_Device)) {
+			wglMakeCurrent(nullptr, nullptr);
+			wglDeleteContext(m_Context);
+#ifdef VISCOS_PLATFORM_WINDOWS
+			ReleaseDC(static_cast<HWND>(m_NativeWindow), m_Device);
+#endif
+			throw ViscosException("Failed to load WGL functions!");
 		}
 
 		// Enable V-Sync
 		// TODO: Abstract V-Sync system
-		wglSwapIntervalEXT(1);
+		if (GLAD_WGL_EXT_swap_control && wglSwapIntervalEXT)
+		{
+			if (!wglSwapIntervalEXT(1))
+				VSCS_CORE_WARN("Failed to enable VSync!");
+		}
+		else
+		{
+			VSCS_CORE_WARN("WGL swap control is not supported!");
+		}
 
 		// Enable alpha blending
 		glEnable(GL_BLEND);
@@ -73,9 +116,20 @@ namespace Viscos {
 
 	OpenGLGraphics::~OpenGLGraphics()
 	{
+		if (m_Context)
+		{
+			if (wglGetCurrentContext() == m_Context)
+				wglMakeCurrent(nullptr, nullptr);
+			wglDeleteContext(m_Context);
+			m_Context = nullptr;
+		}
+
 #ifdef VISCOS_PLATFORM_WINDOWS
-		wglDeleteContext(m_Context);
-		ReleaseDC(static_cast<HWND>(m_NativeWindow), m_Device);
+		if (m_Device)
+		{
+			ReleaseDC(static_cast<HWND>(m_NativeWindow), m_Device);
+			m_Device = nullptr;
+		}
 #endif
 	}
 
@@ -84,7 +138,7 @@ namespace Viscos {
 #ifdef VISCOS_PLATFORM_WINDOWS
 		if (SwapBuffers(m_Device) == FALSE)
 		{
-			VSCS_CORE_ERROR("Failed to swap framebuffers!");
+			throw ViscosException("Failed to swap framebuffers!");
 		}
 #endif
 	}

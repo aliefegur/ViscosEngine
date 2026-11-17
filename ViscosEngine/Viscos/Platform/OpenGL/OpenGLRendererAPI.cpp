@@ -1,5 +1,6 @@
 #include "OpenGLRendererAPI.h"
 #include "OpenGLIndexBuffer.h"
+#include "Viscos/Core/Assert.h"
 
 #include <glad/glad.h>
 
@@ -17,11 +18,10 @@ namespace Viscos {
 		const auto count = indexBuffer.GetCount();
 		constexpr auto maxCount = static_cast<size_t>((std::numeric_limits<GLsizei>::max)());
 
-		if (count > maxCount)
-		{
-			VSCS_CORE_ERROR("Index count {} exceeds OpenGL limit {}!", count, maxCount);
-			return;
-		}
+		VISCOS_ASSERT(
+			count <= maxCount,
+			"Index count exceeds OpenGL limit!"
+		);
 
 		glDrawElements(
 			GL_TRIANGLES,
