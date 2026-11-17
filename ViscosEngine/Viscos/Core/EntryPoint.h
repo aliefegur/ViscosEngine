@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 	}
 	catch (const Viscos::ViscosException& e)
 	{
-        VSCS_CORE_ERROR("{}", e.what());
+        std::fprintf(stderr, "[%s]\n%s", e.GetType(), e.what());
 
         try
         {
